@@ -1,0 +1,11 @@
+{
+  "sha256": "1af81f6b88bec9ae0bf1cf668eaefdee86cc69b5ad27d3d74a797ab4a7991bad",
+  "raw_rows": 6000,
+  "authors": 329,
+  "blank_rows": 9,
+  "duplicate_occurrences": 8,
+  "overlap": 3,
+  "retained_posts": 5986,
+  "date_labels": 44,
+  "changed_posts": 1901
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edmunds evidence review</title>
+<style>
+body{font:16px/1.55 system-ui,sans-serif;color:#172c36;background:#f3f6f7;margin:0}main{max-width:1150px;margin:32px auto;padding:24px}
+h1{font-size:30px}section{background:white;border:1px solid #d8e0e3;border-radius:10px;padding:24px;margin:20px 0}
+button,input,textarea{font:inherit;padding:10px;border:1px solid #aabcc4;border-radius:5px}button{cursor:pointer;background:#e4f3f2;margin:4px}
+textarea{box-sizing:border-box;width:100%;min-height:290px;font:13px/1.5 monospace}pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.muted{color:#526870}
+#message{color:#9b300a}label{display:block;margin:10px 0}input[type=text]{width:90%}@media(max-width:800px){.grid{grid-template-columns:1fr}}
+</style>
+<main><h1>Review the evidence</h1>
+<p>Load a generated review JSON file. Read the complete post, inspect each label and evidence span, correct the expected record, and record your judgment. All work stays in this browser; nothing is uploaded.</p>
+<p class="muted">Concrete or conditional personal ownership desire qualifies; praise or ownership alone does not. Exclude quoted-only references. Record GM as the parent—the pipeline applies the task-specific expansion. Keep uncertain judgments uncertain. Random-audit cases must not be used to revise the frozen prompt.</p>
+<div class="row"><input type="file" id="file" accept=".json"><button id="export">Download review JSON</button><span id="progress"></span></div>
+<section><div class="row"><button id="prev">Previous</button><strong id="position">No file loaded</strong><button id="next">Next</button></div>
+<h2>Source evidence</h2><pre id="raw"></pre><details><summary>Cleaned text</summary><pre id="clean"></pre></details></section>
+<section class="grid"><div><h2>Predicted record</h2><pre id="pred"></pre></div><div><h2>Your expected record</h2>
+<button id="copy">Use prediction as an editable starting point</button><textarea id="expected" aria-label="Expected JSON record"></textarea>
+<label>Reviewer name<input type="text" id="reviewer"></label><label>Error types (comma-separated)<input type="text" id="errors" placeholder="wrong brand, quote attribution, missed desire"></label>
+<label>Notes<input type="text" id="notes"></label><label><input type="checkbox" id="checked"> I personally inspected this post and the labels.</label>
+<button id="save">Save this review</button><p id="message" role="status"></p></div></section>
+<p class="muted">Download your work before closing this page. Replace the matching file in artifacts with the downloaded JSON. The pipeline validates exact evidence, canonical labels and extraction provenance when importing it.</p></main>
+<script>
+let records=[], index=0, filename='review.json';
+const $=id=>document.getElementById(id);
+function show(){if(!records.length)return;const r=records[index];$('position').textContent=`${index+1} / ${records.length} · Post ${r.post_id} · ${r.sets.join(', ')}`;
+ $('raw').textContent=r.raw_text;$('clean').textContent=r.clean_text;$('pred').textContent=JSON.stringify(r.predicted,null,2);
+ $('expected').value=r.expected?JSON.stringify(r.expected,null,2):'';$('reviewer').value=r.reviewer||localStorage.getItem('edmundsReviewer')||'';
+ $('errors').value=(r.error_types||[]).join(', ');$('notes').value=r.notes||'';$('checked').checked=!!r.human_reviewed;
+ $('progress').textContent=`${records.filter(x=>x.human_reviewed&&x.expected).length} reviewed`;$('message').textContent='';}
+$('file').onchange=async e=>{try{const f=e.target.files[0];if(!f)return;const data=JSON.parse(await f.text());
+ if(!Array.isArray(data)||!data.every(x=>Number.isInteger(x.post_id)&&Array.isArray(x.sets)))throw Error('Not a review file');records=data;filename=f.name;index=0;show();}catch(e){$('message').textContent=e.message;}};
+$('copy').onclick=()=>{if(records[index]?.predicted)$('expected').value=JSON.stringify(records[index].predicted,null,2);};
+$('save').onclick=()=>{try{if(!records.length)throw Error('Load a review file first.');if(!$('checked').checked||!$('reviewer').value.trim())throw Error('Reviewer and personal-inspection confirmation are required.');
+ const expected=JSON.parse($('expected').value),r=records[index];if(expected.post_id!==r.post_id)throw Error('Post ID must match.');
+ for(const k of ['brands','relations','attributes','aspirations','unresolved'])if(!Array.isArray(expected[k]))throw Error(`Missing array: ${k}`);
+ Object.assign(r,{expected,reviewer:$('reviewer').value.trim(),reviewed_at:new Date().toISOString(),human_reviewed:true,error_types:$('errors').value.split(',').map(x=>x.trim()).filter(Boolean),notes:$('notes').value});
+ localStorage.setItem('edmundsReviewer',r.reviewer);show();$('message').textContent='Saved in this page. Download the JSON to keep it.';}catch(e){$('message').textContent=e.message;}};
+function move(delta){if(!records.length)return;if($('expected').value!==(records[index].expected?JSON.stringify(records[index].expected,null,2):'')&&!confirm('Leave without saving changes on this post?'))return;index=Math.max(0,Math.min(records.length-1,index+delta));show();}
+$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);
+$('export').onclick=()=>{if(!records.length)return;const url=URL.createObjectURL(new Blob([JSON.stringify(records,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+</script></html>
