@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import csv
 import hashlib
 import inspect
@@ -320,6 +321,59 @@ class BudgetAPI:
                 row['error_type'] = type(exc).__name__
                 write_json(ledger_path, ledger)
                 raise
+
+
+def find_span(quote, text):
+    """Verbatim source span equal to quote up to case and whitespace, or None."""
+    words = quote.split()
+    match = re.search(r'\s+'.join(map(re.escape, words)), text, re.I) if words else None
+    return match.group(0) if match else None
+
+
+def repair_taxonomy(tax, posts, exclude=()):
+    """Re-anchor alias evidence to verbatim source text before strict validation.
+
+    The model can cite the wrong post ID or misquote (case, a changed word, reordered clauses).
+    Evidence is only ever replaced by exact source text containing the alias surface; aliases that
+    cannot be anchored move to unresolved rather than being kept. Every change is returned."""
+    tax = copy.deepcopy(tax)
+    texts = posts.set_index('post_id').clean_text.to_dict()
+    exclude = set(exclude)
+    kept, repairs = [], []
+    for alias in tax['aliases']:
+        pid, evidence, surface = alias['post_id'], alias['evidence'], alias['surface'].strip()
+        cited = texts.get(pid, '')
+        holds = lambda span: bool(span) and bool(surface) and surface.lower() in span.lower()
+        if evidence and evidence in cited and holds(evidence):
+            kept.append(alias)
+            continue
+        fix = None
+        span = find_span(evidence, cited)
+        if holds(span):
+            fix = (pid, span, 'case/whitespace differs in cited post')
+        if not fix:
+            for other, text in texts.items():
+                span = None if other in exclude else find_span(evidence, text)
+                if holds(span):
+                    fix = (other, span, 'evidence found in a different post')
+                    break
+        if not fix and surface:
+            m = re.search(r'(?<!\w)' + re.escape(surface) + r'(?!\w)', cited, re.I)
+            if m:
+                start = cited.rfind(' ', 0, max(0, m.start() - 40)) + 1
+                end = cited.find(' ', m.end() + 40)
+                fix = (pid, cited[start:end if end != -1 else len(cited)], 'misquote replaced by excerpt around surface')
+        change = {'surface': alias['surface'], 'brand': alias['brand'], 'from_post': pid, 'from_evidence': evidence}
+        if fix:
+            alias['post_id'], alias['evidence'] = fix[0], fix[1]
+            kept.append(alias)
+            repairs.append({**change, 'to_post': fix[0], 'to_evidence': fix[1], 'reason': fix[2]})
+        else:
+            tax['unresolved'].append({'surface': alias['surface'],
+                                      'reason': 'Evidence for ' + alias['brand'] + ' not found in source text.'})
+            repairs.append({**change, 'to_post': None, 'to_evidence': None, 'reason': 'moved to unresolved'})
+    tax['aliases'] = kept
+    return tax, repairs
 
 
 def validate_taxonomy(tax, posts):
@@ -666,9 +720,12 @@ def run_stage(root, stage, source=None):
                                            examples=[dict(post_id=e['post_id'], text=e['text'][:450])
                                                      for e in t['examples']]) for t in found['topics']]}
         tax = api.request('A discovery', DISCOVERY_PROMPT, payload, TAXONOMY_SCHEMA, 22000)
+        # Holdout posts were never shown to the model, so they cannot anchor its evidence.
+        tax, repairs = repair_taxonomy(tax, posts, exclude=plan['holdout'])
         validate_taxonomy(tax, posts)
+        write_json(art / 'taxonomy_repairs.json', repairs)
         write_json(art / 'taxonomy.json', tax)
-        return {'aliases': len(tax['aliases']), 'themes': len(tax['themes'])}
+        return {'aliases': len(tax['aliases']), 'themes': len(tax['themes']), 'evidence_repairs': len(repairs)}
     taxonomy = read_json(art / 'taxonomy.json')
     if not taxonomy:
         raise ValueError('Run discover first; there is no validated corpus-derived taxonomy.')

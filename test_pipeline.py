@@ -164,6 +164,32 @@ class EvidenceAndAuditTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_records([self.r,self.r],self.posts,self.tax)
 
+    def test_taxonomy_evidence_repair(self):
+        posts = pd.DataFrame({'post_id':[0,1,2,3], 'clean_text':[
+            'i am not sold on bmw at this time.',
+            'someone who finds a 4-5 year old caddy an attractive car.',
+            '$4k more than my e46. seems reasonable for more horsepower and more options.',
+            'the CTS-V will be going after the M5.']})
+        a = lambda s, b, p, e: dict(surface=s, brand=b, kind='alias', unambiguous=True, post_id=p, evidence=e)
+        tax = dict(aliases=[a('BMW','BMW',0,'bmw at this time'),               # already valid
+                            a('CTS-V','Cadillac',2,'the cts-v will be going after'),  # wrong post, case
+                            a('Caddy','Cadillac',1,'find a 4-5 year old caddy'),      # changed word
+                            a('E46','BMW',2,'more options than my e46'),              # reordered clauses
+                            a('Audi','Audi',0,'audi is great')],                      # nowhere
+                   themes=[], unresolved=[])
+        fixed, repairs = repair_taxonomy(tax, posts)
+        texts = posts.set_index('post_id').clean_text
+        self.assertEqual([x['surface'] for x in fixed['aliases']], ['BMW','CTS-V','Caddy','E46'])
+        for alias in fixed['aliases']:
+            self.assertIn(alias['evidence'], texts[alias['post_id']])
+            self.assertIn(alias['surface'].lower(), alias['evidence'].lower())
+        self.assertEqual(fixed['aliases'][1]['post_id'], 3)
+        self.assertEqual(fixed['unresolved'][0]['surface'], 'Audi')
+        self.assertEqual(len(repairs), 4)
+        self.assertEqual(len(tax['aliases']), 5)  # input untouched
+        held_out = repair_taxonomy(tax, posts, exclude=[3])[0]  # holdout text never anchors evidence
+        self.assertEqual([x['surface'] for x in held_out['unresolved']], ['CTS-V','Audi'])
+
     def test_unknown_targets_and_unsupported_endpoints(self):
         wrong = copy.deepcopy(self.r)
         wrong['attributes'][0]['targets'] = ['Audi']
