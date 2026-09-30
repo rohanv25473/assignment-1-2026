@@ -45,7 +45,7 @@ def build(root, execute=False, output=None):
     No project Python files are needed for this notebook's default run.
 
     **Colab:** upload the notebook and `sample_data.csv` into the runtime. Keep `GENERATION_STAGE=None`
-    to reproduce saved results. For generation, use the private `OPENAI_API_KEY` Colab secret, choose a
+    to reproduce saved results. For generation, use the private `ANTHROPIC_API_KEY` Colab secret, choose a
     persistent `WORK_ROOT` (for example, a mounted Drive folder), and run one explicit stage at a time:
     `prepare → discover → pilot → freeze → extract`. Between pilot and freeze, humans complete the
     20 development reviews. After extraction, complete the 40 random reviews and selected targeted
@@ -55,12 +55,20 @@ def build(root, execute=False, output=None):
     ''')
     code('''
     # Run this once only if the environment lacks packages. This is not an API call.
-    # %pip install numpy pandas scipy scikit-learn matplotlib nbformat nbclient ipykernel jsonschema requests
+    # %pip install numpy pandas scipy scikit-learn matplotlib nbformat nbclient ipykernel jsonschema requests anthropic
     from pathlib import Path
     import os, sys, types
     WORK_ROOT = Path(os.environ.get('ASSIGNMENT_ROOT', '.')).resolve()
     DATA_PATH = Path(os.environ.get('EDMUNDS_DATA', str(WORK_ROOT / 'sample_data.csv')))
     GENERATION_STAGE = None  # Explicit opt-in: 'prepare', 'discover', 'pilot', 'freeze', or 'extract'
+    # Team decision to freeze despite failed development gates; stored in freeze.json and reported. None = no override.
+    FREEZE_OVERRIDE_REASON = None
+    if GENERATION_STAGE in {'discover', 'pilot', 'extract'}:
+        try:
+            import anthropic  # Claude API client; needed only for paid generation stages
+        except ImportError:
+            import subprocess
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-q', 'anthropic>=1.9,<2'])
     if not DATA_PATH.is_file():
         raise FileNotFoundError('Place the original sample_data.csv at DATA_PATH; no replacement corpus is used.')
     ''')
@@ -93,13 +101,13 @@ def build(root, execute=False, output=None):
         current_ledger = read_json(artifact_dir / 'usage.json', [])
         if not {r['call_id'] for r in old_ledger} <= {r['call_id'] for r in current_ledger}:
             raise RuntimeError('Local ledger is missing embedded calls. Reconcile ledgers before any new spending.')
-        if GENERATION_STAGE in {'discover', 'pilot', 'extract'} and not os.environ.get('OPENAI_API_KEY'):
+        if GENERATION_STAGE in {'discover', 'pilot', 'extract'} and not os.environ.get('ANTHROPIC_API_KEY'):
             try:
                 from google.colab import userdata
-                os.environ['OPENAI_API_KEY'] = userdata.get('OPENAI_API_KEY')
+                os.environ['ANTHROPIC_API_KEY'] = userdata.get('ANTHROPIC_API_KEY')
             except Exception:
-                raise RuntimeError('Configure OPENAI_API_KEY securely; do not place the key in this notebook.') from None
-        print(run_stage(WORK_ROOT, GENERATION_STAGE, DATA_PATH))
+                raise RuntimeError('Configure ANTHROPIC_API_KEY securely; do not place the key in this notebook.') from None
+        print(run_stage(WORK_ROOT, GENERATION_STAGE, DATA_PATH, freeze_override=FREEZE_OVERRIDE_REASON))
         BUNDLE = collect_artifacts(WORK_ROOT)
     # Local artifacts are used only when explicitly requested, avoiding silent stale-cache replacement.
     USE_LOCAL_ARTIFACTS = False  # Set True after editing human review JSON in WORK_ROOT/artifacts.
@@ -277,9 +285,12 @@ def build(root, execute=False, output=None):
     - Assignment: `MSBT&AI_F2026_Assignment_1.docx` (supplied project document).
     - Accepted specification: `docs/NOTEBOOK_DESIGN.md`, `docs/calculation-contract.md`, and 12 ADRs.
     - Corpus: `sample_data.csv`; fingerprint checked above; no additional corpus is collected.
-    - [OpenAI GPT-6 Luna model and pricing](https://developers.openai.com/api/docs/models/gpt-6-luna),
-      verified September 29, 2026. Exact model availability still depends on the account.
-    - [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).
+    - [Claude pricing: Haiku 4.5, prompt caching and the Batch API discount](https://platform.claude.com/docs/en/about-claude/pricing),
+      verified September 29, 2026.
+    - [Claude structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) and
+      [Message Batches](https://platform.claude.com/docs/en/build-with-claude/batch-processing).
+    - Generation moved from OpenAI GPT-6 Luna to Claude Haiku 4.5 during the pilot (implementation 2.0.0).
+      The earlier Luna calls stay in the cumulative $15 ledger; their extraction outputs are archived.
 
     Code generation assistance does not validate semantic results. Review labels retain reviewer names,
     timestamps, prediction hashes, evidence, error types and sample membership.

@@ -34,7 +34,7 @@ The verification command runs the notebook in a temporary folder containing only
 
 ## Finish generation locally
 
-Configure `OPENAI_API_KEY` securely in the process environment; never put the key in source, the notebook, or a chat message. Generation uses `gpt-6-luna`. Model/account access is verified by the actual request, not inferred from public documentation.
+Configure `ANTHROPIC_API_KEY` securely in the process environment; never put the key in source, the notebook, or a chat message. Generation uses Claude Haiku 4.5 (`claude-haiku-4-5`): the pilot as concurrent real-time requests, full extraction through rolling Message Batches at half price (see ADR 0008's September 29 revision). Model/account access is verified by the actual request, not inferred from public documentation.
 
 Run these stages from the project directory:
 
@@ -63,7 +63,7 @@ Review the resulting recommendation language, error discussion and readiness che
 ## Finish generation in Colab
 
 1. Upload the notebook and original CSV. Install the listed packages if needed.
-2. Put the API key in a private Colab secret named `OPENAI_API_KEY` and grant notebook access.
+2. Put the API key in a private Colab secret named `ANTHROPIC_API_KEY` and grant notebook access. The setup cell installs the `anthropic` package when a generation stage is selected.
 3. Mount Drive yourself and set `WORK_ROOT` to a persistent project folder; set `DATA_PATH` to the CSV. **Preserve artifacts across runtime resets.**
 4. Set `GENERATION_STAGE` to one stage at a time, following the sequence above. Human reviews occur between development and full generation, and before final submission.
 5. After editing review files, set `USE_LOCAL_ARTIFACTS=True` to load them. The offline review editor can be used on downloaded JSON files, then the completed files returned to Drive.
@@ -80,6 +80,6 @@ The optional export is necessary because changing a runtime variable does not re
 - Strict schema and source-evidence checks can reject a completed response. If the same cached response remains invalid, refine the relevant prompt and explicitly version/archive affected outputs. Never hand-invent replacement labels to claim full coverage.
 - Do not delete `usage.json`, reset it, create a fresh project ledger to bypass the budget, or discard unresolved reservations. If a crash leaves `budget.lock`, first ensure no generator is running and inspect the last reservation before removing that one lock file.
 - The pilot projection and per-request reservation can stop full extraction. Such a stop remains incomplete; the code never silently samples the corpus or raises the cap.
-- Standard short-context pricing was checked on September 29, 2026: [official model page](https://developers.openai.com/api/docs/models/gpt-6-luna). Reverify before future generation; the notebook records its price assumptions. [Structured Outputs documentation](https://developers.openai.com/api/docs/guides/structured-outputs) defines the response format used.
+- Claude Haiku 4.5 pricing (including prompt caching and the 50% Batch API discount) was checked on September 29, 2026: [official pricing](https://platform.claude.com/docs/en/about-claude/pricing). Reverify before future generation; the notebook records its price assumptions. [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) define the response format used. Earlier GPT-6 Luna discovery/pilot calls remain in the cumulative ledger.
 
 See [implementation decisions and status](docs/IMPLEMENTATION_STATUS.md) for exact parameters and remaining dependencies.

@@ -22,7 +22,7 @@ def verify(root):
         km = KernelManager(kernel_name='python3')
         km.kernel_spec.argv = [sys.executable, '-m', 'ipykernel_launcher', '-f', '{connection_file}']
         env = dict(os.environ)
-        for key in ['OPENAI_API_KEY','ASSIGNMENT_ROOT','EDMUNDS_DATA','PYTHONPATH']:
+        for key in ['OPENAI_API_KEY','ANTHROPIC_API_KEY','ASSIGNMENT_ROOT','EDMUNDS_DATA','PYTHONPATH']:
             env.pop(key, None)
         client = NotebookClient(notebook, km=km, timeout=600, resources={'metadata':{'path':str(scratch)}})
         try:
