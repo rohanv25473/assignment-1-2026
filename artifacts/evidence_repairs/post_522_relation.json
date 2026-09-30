@@ -1,0 +1,8 @@
+{
+  "post_id": 522,
+  "field": "relations",
+  "original_evidence": "i see mercedes-benz using a similar device",
+  "corrected_evidence": "whats that bmw i-drive bs gadget i see on the center console ? i see mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz using a similar device",
+  "classification_changed": false,
+  "reason": "Restore repeated brand names and include comparison context."
+}

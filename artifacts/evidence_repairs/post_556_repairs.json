@@ -1,0 +1,52 @@
+[
+  {
+    "post_id": 556,
+    "before": {
+      "brand": "BMW",
+      "evidence": "2008 bmw",
+      "kind": "brand",
+      "certainty": "supported"
+    },
+    "after": {
+      "brand": "BMW",
+      "evidence": "08' bmw",
+      "kind": "brand",
+      "certainty": "supported"
+    },
+    "reason": "Restore the source's verbatim abbreviated year."
+  },
+  {
+    "post_id": 556,
+    "before": {
+      "brand": "Volvo",
+      "evidence": "a poj volvo volvo",
+      "kind": "brand",
+      "certainty": "uncertain"
+    },
+    "after": {
+      "brand": "Volvo",
+      "evidence": "a poj volvo volvo",
+      "kind": "brand",
+      "certainty": "supported"
+    },
+    "reason": "Explicit vehicle cross-shopping discussion supports the brand mention."
+  },
+  {
+    "post_id": 556,
+    "before": {
+      "a": "Lexus",
+      "b": "Volvo",
+      "evidence": "nobody is going to cross-shop a lexus ls with a poj volvo volvo",
+      "kind": "purchase_alternatives",
+      "certainty": "supported"
+    },
+    "after": {
+      "a": "Lexus",
+      "b": "Volvo",
+      "evidence": "nobody is going to cross-shop a lexus ls with a poj volvo volvo",
+      "kind": "comparison",
+      "certainty": "supported"
+    },
+    "reason": "Author compares the vehicles but explicitly rejects cross-shopping."
+  }
+]

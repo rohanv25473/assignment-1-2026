@@ -1,0 +1,16 @@
+{
+  "post_id": 458,
+  "original_attribute": {
+    "theme": "Equipment and vehicle features",
+    "subattribute": "Safety technology",
+    "targets": [
+      "Volvo",
+      "Mercedes-Benz"
+    ],
+    "evidence": "offered the same safety(and preformance)",
+    "direction": "positive",
+    "certainty": "supported"
+  },
+  "action": "Preserved in unresolved; excluded from attribute counts.",
+  "reason": "Safety technology is absent from the approved taxonomy."
+}

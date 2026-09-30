@@ -14264,8 +14264,8 @@
         "http www",
         "edmunds",
         "edmunds com",
-        "www edmunds com",
         "www edmunds",
+        "www edmunds com",
         "html",
         "http www edmunds",
         "insideline",
@@ -14276,10 +14276,10 @@
         "subaru",
         "com reviews",
         "link",
-        "caranddriver com",
-        "caranddriver",
         "www caranddriver",
         "www caranddriver com",
+        "caranddriver com",
+        "caranddriver",
         "org",
         "http www caranddriver",
         "2007"
@@ -14477,5 +14477,5 @@
     }
   ],
   "vocabulary_size": 14000,
-  "reconstruction_error": 75.2148331541802
+  "reconstruction_error": 75.21483315418014
 }
