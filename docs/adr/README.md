@@ -11,7 +11,7 @@ All records below are accepted through the interview. The question-by-question h
 | [0005](0005-cluster-from-full-brand-distances.md) | Nonmetric MDS and clustering full distances | Q24-Q26 |
 | [0006](0006-corpus-derived-attribute-hierarchy.md) | Corpus-derived names and attribute hierarchy | Q4, Q9-Q11 |
 | [0007](0007-automated-pipeline-with-independent-audit.md) | Automated execution, pilot, and independent audit | Q9, Q12, Q22 |
-| [0008](0008-api-budget-and-model-strategy.md) | OpenAI model strategy and $15 cumulative budget | Q17, Q21 |
+| [0008](0008-api-budget-and-model-strategy.md) | Model strategy and $15 cumulative budget (revised: Claude Haiku 4.5 with Message Batches) | Q17, Q21 |
 | [0009](0009-semantic-brand-attribute-positioning.md) | Positioning, attribution, inherited links, validation | Q27-Q32 |
 | [0010](0010-aspiration-as-expressed-ownership-desire.md) | Author-level expressed ownership desire | Q33-Q38 |
 | [0011](0011-evidence-qualified-client-recommendations.md) | Evidence-qualified client actions | Q39-Q40 |

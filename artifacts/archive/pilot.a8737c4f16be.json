@@ -1,0 +1,1258 @@
+{
+  "provenance": "a8737c4f16be4f766fe2a517a6ad9bcc167e5ca9e532d3fd740bec8021497dee",
+  "records": [
+    {
+      "post_id": 65,
+      "brands": [
+        {
+          "brand": "Holden",
+          "evidence": "holden commodore",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Holden",
+          "evidence": "commodore",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Pontiac",
+          "evidence": "pontiac",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    {
+      "post_id": 155,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "bmw",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "bimmer",
+          "kind": "alias",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Honda",
+          "evidence": "honda fit",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "BMW",
+          "b": "Honda",
+          "evidence": "bmw are a commodity, just like a honda fit",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "people have been getting over-invoice deals on the bmw already",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "essentially anyone paying msrp for one is getting taken for a ride",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    {
+      "post_id": 219,
+      "brands": [
+        {
+          "brand": "Mercedes-Benz",
+          "evidence": "mercedes-benz has been \" chryslerized \"",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "bmw is \" pure \"",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "BMW",
+          "b": "Mercedes-Benz",
+          "evidence": "bmw is \" pure \" whereas mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz has been \" chryslerized \"",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Mercedes-Benz"
+          ],
+          "evidence": "style without the bmw controversy",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Reliability and quality",
+          "targets": [
+            "Mercedes-Benz"
+          ],
+          "evidence": "quality and reliability have suffered",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "Mercedes-Benz"
+          ],
+          "evidence": "the sticker price to match",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    {
+      "post_id": 253,
+      "brands": [
+        {
+          "brand": "Audi",
+          "evidence": "the audi",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Cadillac",
+          "evidence": "the cts",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Infiniti",
+          "evidence": "the infiniti",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "the lexus",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "bimmer",
+          "kind": "alias",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Acura",
+          "evidence": "by the lexus, then bimmer, then tl (the acura has a nice layout, but the seat doesn't",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Volvo",
+          "evidence": "the volvo",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Infiniti",
+          "b": "Lexus",
+          "evidence": "the infiniti looks the best to me, followed by the lexus",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Lexus",
+          "b": "BMW",
+          "evidence": "followed by the lexus, then bimmer",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "BMW",
+          "b": "Acura",
+          "evidence": "then bimmer, then tl",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Audi"
+          ],
+          "evidence": "the audi looks pretty bad, too",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Infiniti"
+          ],
+          "evidence": "the infiniti looks the best to me",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Lexus",
+            "BMW",
+            "Acura"
+          ],
+          "evidence": "followed by the lexus, then bimmer, then tl",
+          "direction": "unclear",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "the cts is down there, too",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Seating and passenger space",
+          "targets": [
+            "Acura"
+          ],
+          "evidence": "the seat doesn't \" look \" very comfy",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "the inside shots make it look horrible by comparison",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": [
+        "mb",
+        "toyota able"
+      ]
+    },
+    {
+      "post_id": 401,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "for bmw group (us):for the new bmw 3 series sport wagon",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "bmw 3 series sport wagon",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Toyota",
+          "evidence": "toyota&#146;s passenger car recorded best-ever october sales",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Honda",
+          "evidence": "honda: 250,000 honda sales ytd august 2006",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    {
+      "post_id": 420,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "bmw often has insane 2 year lease deals",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "550i ed pricing is here",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "right now a 530i is a decent deal",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "right now a 530i is a decent deal",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "that's about 9k out of pocket over 24 months for a 5 series",
+          "direction": "neutral",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    {
+      "post_id": 442,
+      "brands": [
+        {
+          "brand": "Volvo",
+          "evidence": "compare a s40 to a volvo",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Volvo",
+          "evidence": "a s40 to a volvo",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Cadillac",
+          "evidence": "nowhere is it more evident, though, than in the cadillac cts",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Cadillac",
+          "evidence": "the cts with the 3.6vvt engine and stickshift",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Audi",
+          "evidence": "the audi is a maintainence nightmare",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "i'd much rather drive an old 80's bmw",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "the bmw is a pathetic little thing like ths is250 is",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "a new is300",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mazda",
+          "evidence": "the mazda - no bling - not luxury at all",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Pontiac",
+          "evidence": "the pontiac 5 - yes, you too noticed how the old models are better",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Cadillac",
+          "evidence": "the cadillac catera also had this exact same problem",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "BMW",
+          "b": "Lexus",
+          "evidence": "the bmw is a pathetic little thing like ths is250 is",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        },
+        {
+          "a": "Cadillac",
+          "b": "BMW",
+          "evidence": "it reminded me of a softer-sprung upper-end 3 series",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Cadillac",
+          "b": "Lexus",
+          "evidence": "or a new is300",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Powertrain and transmission",
+          "subattribute": "Transmission",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "the cts with the 3.6vvt engine and stickshift is an astounding machine",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Engine output",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "with 6 speeds and 255hp",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "it pulls hard like a turbo-diesel",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "a bit ugly(okay, a lot ugly)",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Maintenance and depreciation",
+          "targets": [
+            "Audi"
+          ],
+          "evidence": "the audi is a maintainence nightmare",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Equipment and vehicle features",
+          "subattribute": "Driver and convenience equipment",
+          "targets": [
+            "Audi"
+          ],
+          "evidence": "the joke of a cupholder",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Engine output",
+          "targets": [
+            "BMW",
+            "Lexus"
+          ],
+          "evidence": "not enough power",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Equipment and vehicle features",
+          "subattribute": "Packages and options",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "it's bare-bone at that",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "Mazda"
+          ],
+          "evidence": "it represents the most rwd acceleration and handling that $25k(after rebates and incentves of course) can buy you",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Powertrain and transmission",
+          "subattribute": "Transmission",
+          "targets": [
+            "Pontiac"
+          ],
+          "evidence": "the older generation with the manual gearbox is a joy to drive",
+          "direction": "positive",
+          "certainty": "uncertain"
+        },
+        {
+          "theme": "Body style and vehicle class",
+          "subattribute": "Market segment",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "the volvo is probably the closest",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": [
+        "Pontiac 5 (uncertain model identity)",
+        "Toyota d (appears to be corrupted text)"
+      ]
+    },
+    {
+      "post_id": 458,
+      "brands": [
+        {
+          "brand": "Volvo",
+          "evidence": "volvo's early h toyota ory is pretty easy to research",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mercedes-Benz",
+          "evidence": "mercedes-benz mercedes-benz mercedes-benz",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Buick",
+          "evidence": "they are(or were) the european version of buick",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "why buy mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz and bmw when lexus offered 75-80% for half the price?",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "why buy mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz and bmw when lexus offered 75-80% for half the price?",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Chevrolet",
+          "evidence": "chevrolet and toyota and the like",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Toyota",
+          "evidence": "chevrolet and toyota and the like",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Infiniti",
+          "evidence": "lexus, infinity, volvo, and so on",
+          "kind": "brand",
+          "certainty": "uncertain"
+        },
+        {
+          "brand": "Saab",
+          "evidence": "and volvo and saab belong there",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Volvo",
+          "b": "Mercedes-Benz",
+          "evidence": "what made them famous, though, was how they copied mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz ' technology during the 60s, 70s and 80s - and reproduced it for 2/3 of the cost",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Buick",
+          "evidence": "they are(or were) the european version of buick",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Lexus",
+          "b": "Mercedes-Benz",
+          "evidence": "why buy mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz and bmw when lexus offered 75-80% for half the price?",
+          "kind": "purchase_alternatives",
+          "certainty": "supported"
+        },
+        {
+          "a": "Lexus",
+          "b": "BMW",
+          "evidence": "why buy mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz and bmw when lexus offered 75-80% for half the price?",
+          "kind": "purchase_alternatives",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Saab",
+          "evidence": "and volvo and saab belong there",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "reproduced it for 2/3 of the cost",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "Volvo",
+            "Mercedes-Benz"
+          ],
+          "evidence": "volvo cost a lot less and offered the same safety(and preformance)",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "Lexus",
+            "Mercedes-Benz",
+            "BMW"
+          ],
+          "evidence": "when lexus offered 75-80% for half the price?",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Body style and vehicle class",
+          "subattribute": "Market segment",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "i have always considered them to be a luxury maker at heart",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Body style and vehicle class",
+          "subattribute": "Market segment",
+          "targets": [
+            "Volvo",
+            "Lexus"
+          ],
+          "evidence": "a working-man's luxury alternative, exactly like lexus started off as",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Body style and vehicle class",
+          "subattribute": "Market segment",
+          "targets": [
+            "Volvo",
+            "Saab"
+          ],
+          "evidence": "and volvo and saab belong there",
+          "direction": "neutral",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": [
+        "infinity (possibly Infiniti)"
+      ]
+    },
+    {
+      "post_id": 460,
+      "brands": [
+        {
+          "brand": "Volvo",
+          "evidence": "volvo is not a \" luxury brand",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "compared to lexus",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "bmw 7-series",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mercedes-Benz",
+          "evidence": "mercedes-benz mercedes-benz mercedes-benz",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Audi",
+          "evidence": "the audi audi",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Acura",
+          "evidence": "acura rl",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Saab",
+          "evidence": "similar to saab and acura",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Buick",
+          "evidence": "european buick",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Honda",
+          "evidence": "similar to the honda honda",
+          "kind": "brand",
+          "certainty": "uncertain"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Volvo",
+          "b": "Lexus",
+          "evidence": "compared to lexus, bmw, mercedes-benz",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "BMW",
+          "evidence": "compared to lexus, bmw, mercedes-benz",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Mercedes-Benz",
+          "evidence": "compared to lexus, bmw, mercedes-benz",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Audi",
+          "evidence": "i'd put the volvo closer to the audi audi , and acura rl",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Acura",
+          "evidence": "i'd put the volvo closer to the audi audi , and acura rl",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Saab",
+          "evidence": "most similar to saab and acura in market segment",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Buick",
+          "evidence": "volvo's are basically european buick",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Honda",
+          "evidence": "they are very similar to the honda honda",
+          "kind": "comparison",
+          "certainty": "uncertain"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Body style and vehicle class",
+          "subattribute": "Market segment",
+          "targets": [
+            "Volvo",
+            "Lexus",
+            "Mercedes-Benz"
+          ],
+          "evidence": "they don't come close to mid and top level lexus or mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz car",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Reliability and quality",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "volvo's are well built",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Ride comfort",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "they are soft",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Cabin materials and trim",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "high-quality materials and luxury touches",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Handling, traction, and chassis",
+          "subattribute": "Drivetrain and traction",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "they are fwd",
+          "direction": "neutral",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "don't have any sporting aspirations at all",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Handling, traction, and chassis",
+          "subattribute": "Handling and steering",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "crisp but not sporty handling with light overboosted steering and little road feel",
+          "direction": "mixed",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Ride comfort",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "a smooth, quiet, toyota able touring car",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "i don't pretend for a second that it is \" fun to drive \" or \" sporty. \" it's not",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": [
+        "“toyota able” appears corrupted; not treated as a Toyota reference.",
+        "repair: dropped attributes event; evidence not in post: 'near-luxury\" brand, most similar to saab and acura in market'"
+      ]
+    },
+    {
+      "post_id": 464,
+      "brands": [
+        {
+          "brand": "Lexus",
+          "evidence": "i actually prefer the lexus ls",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mercedes-Benz",
+          "evidence": "to the mercedes-benz mercedes-benz mercedes-benz mercedes-benz",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "early 90's ls400's",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mercedes-Benz",
+          "evidence": "a 95 s420",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Lexus",
+          "b": "Mercedes-Benz",
+          "evidence": "i'd buy a 95 ls400 before a 95 s420 in a heartbeat",
+          "kind": "purchase_alternatives",
+          "certainty": "supported"
+        },
+        {
+          "a": "Lexus",
+          "b": "Mercedes-Benz",
+          "evidence": "i actually prefer the lexus ls to the mercedes-benz",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Cabin materials and trim",
+          "targets": [
+            "Lexus"
+          ],
+          "evidence": "i find the lexus appointments to be softer and warmer",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Cabin materials and trim",
+          "targets": [
+            "Mercedes-Benz"
+          ],
+          "evidence": "tends to be more on the hard, teutonic side of luxury",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Durability and faults",
+          "targets": [
+            "Lexus"
+          ],
+          "evidence": "the ls is a very, very stout car",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Durability and faults",
+          "targets": [
+            "Lexus"
+          ],
+          "evidence": "most of them look as good as the day they drove off the showroom floor",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [
+        {
+          "brand": "Lexus",
+          "evidence": "if i was looking for a luxurious used car, i'd buy a 95 ls400 before a 95 s420 in a heartbeat",
+          "category": "conditional",
+          "certainty": "supported"
+        }
+      ],
+      "unresolved": []
+    },
+    {
+      "post_id": 475,
+      "brands": [
+        {
+          "brand": "Volvo",
+          "evidence": "the new volvo",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Infiniti",
+          "evidence": "the m45",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Acura",
+          "evidence": "rl",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Cadillac",
+          "evidence": "the cadillac sts",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Audi",
+          "evidence": "audi 6/8",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "a lexus ls",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Volvo",
+          "b": "Infiniti",
+          "evidence": "it does compete with not only the m45",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Acura",
+          "evidence": "it does compete with not only the m45, rl",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Cadillac",
+          "evidence": "it also competes with the cadillac sts",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Audi",
+          "evidence": "it also competes with the cadillac sts, audi 6/8",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Lexus",
+          "evidence": "and maybe a lexus ls ?",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Body style and vehicle class",
+          "subattribute": "Market segment",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "the volvo , definitely is a luxury car",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": [
+        "“audi 6/8” does not specify an unambiguous Audi model."
+      ]
+    },
+    {
+      "post_id": 522,
+      "brands": [
+        {
+          "brand": "Volvo",
+          "evidence": "i'd still pick the volvo",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Audi",
+          "evidence": "460. i suppose you didn't want make the audi look that bad ? what's up with audi anyways",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "bmw i-drive",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mercedes-Benz",
+          "evidence": "mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "the ls 460",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Volvo",
+          "b": "Lexus",
+          "evidence": "i was kinda surprised you guys didn't throw in the ls 460",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Audi",
+          "evidence": "the 2007' volvo volvo might just be the best luxury car money can buy. the others might do this or that better",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "BMW",
+          "evidence": "the 2007' volvo volvo might just be the best luxury car money can buy. the others might do this or that better",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Volvo",
+          "b": "Mercedes-Benz",
+          "evidence": "the 2007' volvo volvo might just be the best luxury car money can buy. the others might do this or that better",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "BMW",
+          "b": "Mercedes-Benz",
+          "evidence": "i see mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz using a similar device",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "i'd get more car for my money",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Equipment and vehicle features",
+          "subattribute": "Driver and convenience equipment",
+          "targets": [
+            "BMW",
+            "Mercedes-Benz"
+          ],
+          "evidence": "whats that bmw i-drive bs gadget i see on the center console ? i see mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz using a similar device",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [
+        {
+          "brand": "Volvo",
+          "evidence": "even if i had $80 or $90k to just blow on any car in the segment i'd still pick the volvo",
+          "category": "conditional",
+          "certainty": "supported"
+        }
+      ],
+      "unresolved": []
+    }
+  ],
+  "completed": false
+}

@@ -1,0 +1,1735 @@
+{
+  "14": {
+    "expected": {
+      "post_id": 14,
+      "brands": [
+        {
+          "brand": "Bugatti",
+          "evidence": "i can't afford a bugatti",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "if money was no option it would be a bmw",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "lexus is 350",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Acura",
+          "evidence": "acura tl type-s",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Cadillac",
+          "evidence": "we will be able to throw cadillac, into the mix",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "BMW",
+          "b": "Lexus",
+          "evidence": "the most appealing entry lux car on the market are the pontiac 5, bmw bmw , lexus is 350, acura tl type-s, and yes a cts",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        },
+        {
+          "a": "BMW",
+          "b": "Acura",
+          "evidence": "the most appealing entry lux car on the market are the pontiac 5, bmw bmw , lexus is 350, acura tl type-s, and yes a cts",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        },
+        {
+          "a": "BMW",
+          "b": "Cadillac",
+          "evidence": "the most appealing entry lux car on the market are the pontiac 5, bmw bmw , lexus is 350, acura tl type-s, and yes a cts",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        },
+        {
+          "a": "Lexus",
+          "b": "Acura",
+          "evidence": "the most appealing entry lux car on the market are the pontiac 5, bmw bmw , lexus is 350, acura tl type-s, and yes a cts",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        },
+        {
+          "a": "Lexus",
+          "b": "Cadillac",
+          "evidence": "the most appealing entry lux car on the market are the pontiac 5, bmw bmw , lexus is 350, acura tl type-s, and yes a cts",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        },
+        {
+          "a": "Acura",
+          "b": "Cadillac",
+          "evidence": "the most appealing entry lux car on the market are the pontiac 5, bmw bmw , lexus is 350, acura tl type-s, and yes a cts",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        },
+        {
+          "a": "BMW",
+          "b": "Lexus",
+          "evidence": "i hope to see a head to head test of a bmw vs. 07 is 350",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "BMW",
+            "Lexus",
+            "Acura",
+            "Cadillac"
+          ],
+          "evidence": "they all have above average performance",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "has the best performance",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Equipment and vehicle features",
+          "subattribute": "Driver and convenience equipment",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "while still offering enough gadgets",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Handling, traction, and chassis",
+          "subattribute": "Drivetrain and traction",
+          "targets": [
+            "Acura"
+          ],
+          "evidence": "since it's a fwder and can be driven year-around",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Equipment and vehicle features",
+          "subattribute": "Driver and convenience equipment",
+          "targets": [
+            "Lexus"
+          ],
+          "evidence": "the lexus is, has the most gadgets",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Seating and passenger space",
+          "targets": [
+            "Lexus"
+          ],
+          "evidence": "it's back seat is very tight",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Lexus"
+          ],
+          "evidence": "it's probably the best looking though",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [
+        {
+          "brand": "BMW",
+          "evidence": "if money was no option it would be a bmw",
+          "category": "conditional",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Bugatti",
+          "evidence": "unfortunately i can't afford a bugatti",
+          "category": "conditional",
+          "certainty": "uncertain"
+        }
+      ],
+      "unresolved": [
+        "pontiac 5 (taxonomy: unresolved; artifact for g35)"
+      ]
+    },
+    "note": ""
+  },
+  "269": {
+    "expected": {
+      "post_id": 269,
+      "brands": [
+        {
+          "brand": "Audi",
+          "evidence": "the audi interior",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Cabin materials and trim",
+          "targets": [
+            "Audi"
+          ],
+          "evidence": "i expected to like the audi interior. but i don't, not at all",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "323": {
+    "expected": {
+      "post_id": 323,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": [
+        "pontiac 5 (unresolved artifact); strong ownership desire but brand not identifiable"
+      ]
+    },
+    "note": "Ownership desire is clear but the car (\"pontiac 5\") is an unresolved artifact, so no brand is coded."
+  },
+  "433": {
+    "expected": {
+      "post_id": 433,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "there is no more 330i",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Acura",
+          "evidence": "luxury with its tl",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mercedes-Benz",
+          "evidence": "mb has some serious qc issues",
+          "kind": "alias",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Volvo",
+          "evidence": "a completely stripped 208hp volvo",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mazda",
+          "evidence": "mazda ? isn't this a 2-door?",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "the bmw is an awesome value",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Service and warranty",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "bmw offers a 4yr- 50k mile maintenance free plan",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Cabin materials and trim",
+          "targets": [
+            "Acura"
+          ],
+          "evidence": "acura has made a serious attempt in providing luxury with its tl",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Ride comfort",
+          "targets": [
+            "Acura"
+          ],
+          "evidence": "it's got a stiff ride",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Reliability and quality",
+          "targets": [
+            "Mercedes-Benz"
+          ],
+          "evidence": "mb has some serious qc issues with its vehicles these days",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "your well on your way in being out of your price range",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Body style and vehicle class",
+          "subattribute": "Body configuration",
+          "targets": [
+            "Mazda"
+          ],
+          "evidence": "isn't this a 2-door?",
+          "direction": "neutral",
+          "certainty": "uncertain"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": "\"mb\" resolved to Mercedes-Benz from context."
+  },
+  "617": {
+    "expected": {
+      "post_id": 617,
+      "brands": [
+        {
+          "brand": "Porsche",
+          "evidence": "1987 porsche 928 s4",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Toyota",
+          "evidence": "toyota supra turbo",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mazda",
+          "evidence": "2004 mazda mazda",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Jaguar",
+          "evidence": "2000 jaguar xkr",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Honda",
+          "evidence": "2006 honda s2000",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Chevrolet",
+          "evidence": "1990 chevrolet chevrolet",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Buick",
+          "evidence": "1987 buick buick gnx",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "1995 bmw bmw",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Acura",
+          "evidence": "1993 acura honda",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Volvo",
+          "evidence": "2006 volvo volvo r",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Volvo",
+          "b": "Chevrolet",
+          "evidence": "as fast as a countach s, a db7, and a 1990 chevrolet",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Performance and power",
+          "subattribute": "Acceleration and speed",
+          "targets": [
+            "Volvo"
+          ],
+          "evidence": "as fast as a countach s, a db7, and a 1990 chevrolet",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Acceleration and speed",
+          "targets": [
+            "Buick"
+          ],
+          "evidence": "just to prove old doesn't mean slow",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": [
+        "lamborghini, ferrari, aston martin: outside taxonomy"
+      ]
+    },
+    "note": ""
+  },
+  "737": {
+    "expected": {
+      "post_id": 737,
+      "brands": [
+        {
+          "brand": "Lincoln",
+          "evidence": "nobody i know confuses lincoln as a luxury manufacturer",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Body style and vehicle class",
+          "subattribute": "Market segment",
+          "targets": [
+            "Lincoln"
+          ],
+          "evidence": "nobody i know confuses lincoln as a luxury manufacturer",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "801": {
+    "expected": {
+      "post_id": 801,
+      "brands": [
+        {
+          "brand": "Cadillac",
+          "evidence": "the cadillac cts-v",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lincoln",
+          "evidence": "lincoln lincoln",
+          "kind": "brand",
+          "certainty": "uncertain"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "930": {
+    "expected": {
+      "post_id": 930,
+      "brands": [
+        {
+          "brand": "Lexus",
+          "evidence": "lexus is not putting a manual tranny in the is-f",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "battle the upcoming bmw",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Lexus",
+          "b": "BMW",
+          "evidence": "it is postured to battle the upcoming bmw",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Powertrain and transmission",
+          "subattribute": "Transmission",
+          "targets": [
+            "Lexus"
+          ],
+          "evidence": "is it true that lexus is not putting a manual tranny in the is-f?",
+          "direction": "negative",
+          "certainty": "uncertain"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "1199": {
+    "expected": {
+      "post_id": 1199,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "test drive the bmw again",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Service and warranty",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "they will void the warranty",
+          "direction": "negative",
+          "certainty": "uncertain"
+        }
+      ],
+      "aspirations": [
+        {
+          "brand": "BMW",
+          "evidence": "i'm going to be leasing this vehicle",
+          "category": "concrete",
+          "certainty": "supported"
+        }
+      ],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "1216": {
+    "expected": {
+      "post_id": 1216,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "dinan chip for other bmw",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "1248": {
+    "expected": {
+      "post_id": 1248,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "your dinan chipped bmw",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "1389": {
+    "expected": {
+      "post_id": 1389,
+      "brands": [
+        {
+          "brand": "Volvo",
+          "evidence": "volvo volvo",
+          "kind": "brand",
+          "certainty": "uncertain"
+        },
+        {
+          "brand": "Volkswagen",
+          "evidence": "volkswagen volkswagen",
+          "kind": "brand",
+          "certainty": "uncertain"
+        },
+        {
+          "brand": "Subaru",
+          "evidence": "subaru subaru",
+          "kind": "brand",
+          "certainty": "uncertain"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": "Bare list of models mentioned elsewhere: not substantive, kept uncertain."
+  },
+  "1500": {
+    "expected": {
+      "post_id": 1500,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "the new 335 coupe",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [
+        {
+          "brand": "BMW",
+          "evidence": "would i better off buying a 530i cpo car instead of the the 335",
+          "category": "concrete",
+          "certainty": "supported"
+        }
+      ],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "1515": {
+    "expected": {
+      "post_id": 1515,
+      "brands": [
+        {
+          "brand": "Ford",
+          "evidence": "farah 2, ford 0.",
+          "kind": "brand",
+          "certainty": "uncertain"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": "Unclear whether \"ford\" is the brand or a forum member."
+  },
+  "1777": {
+    "expected": {
+      "post_id": 1777,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "1856": {
+    "expected": {
+      "post_id": 1856,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "1905": {
+    "expected": {
+      "post_id": 1905,
+      "brands": [
+        {
+          "brand": "GM",
+          "evidence": "i'm hoping gm (and even ford)",
+          "kind": "parent",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Ford",
+          "evidence": "and even ford",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Cadillac",
+          "evidence": "the current cadillac cts",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Porsche",
+          "evidence": "that's not a porsche",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Equipment and vehicle features",
+          "subattribute": "Driver and convenience equipment",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "it just doesn't have an aux jack for mp3/minidisc/handheld music players",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Equipment and vehicle features",
+          "subattribute": "Driver and convenience equipment",
+          "targets": [
+            "Porsche"
+          ],
+          "evidence": "like pretty much every mass market car that's not a porsche does",
+          "direction": "negative",
+          "certainty": "uncertain"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "2183": {
+    "expected": {
+      "post_id": 2183,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "2214": {
+    "expected": {
+      "post_id": 2214,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "2527": {
+    "expected": {
+      "post_id": 2527,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": "Generic materials debate; no brand."
+  },
+  "2557": {
+    "expected": {
+      "post_id": 2557,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "2711": {
+    "expected": {
+      "post_id": 2711,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "bmw is \" the ultimate driving machine \"",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "lexus is the relentless pursuit of perfection",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "BMW",
+          "b": "Lexus",
+          "evidence": "marketing = just words",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "Lexus"
+          ],
+          "evidence": "the is350 is far from perfect based on a drive",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "2880": {
+    "expected": {
+      "post_id": 2880,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "2888": {
+    "expected": {
+      "post_id": 2888,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "bmw's lease deals on bmw are so attractive",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Purchase price and value",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "bmw's lease deals on bmw are so attractive that everyone should lease",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "3157": {
+    "expected": {
+      "post_id": 3157,
+      "brands": [
+        {
+          "brand": "Acura",
+          "evidence": "our 2005 acura",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Porsche",
+          "evidence": "my 911 is in the shop",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "in both lexus and acura",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Nissan",
+          "evidence": "on my nissan in 155k miles",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Lexus",
+          "b": "Acura",
+          "evidence": "malfunctioning bluetooth / voice activated electronics in both lexus and acura",
+          "kind": "shared_evaluation",
+          "certainty": "uncertain"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Durability and faults",
+          "targets": [
+            "Acura"
+          ],
+          "evidence": "had to have the navigation control unit (dvd reader under the passenger seat) replaced twice",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Durability and faults",
+          "targets": [
+            "Porsche"
+          ],
+          "evidence": "my 911 is in the shop because the power passenger seat stopped working",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Durability and faults",
+          "targets": [
+            "Lexus",
+            "Acura"
+          ],
+          "evidence": "malfunctioning bluetooth / voice activated electronics in both lexus and acura",
+          "direction": "negative",
+          "certainty": "uncertain"
+        },
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Maintenance and depreciation",
+          "targets": [
+            "Nissan"
+          ],
+          "evidence": "all maintence and repairs on my nissan in 155k miles (under $3,500",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "Porsche"
+          ],
+          "evidence": "it could still kick the butt of almost any pure \" p \" car in any segment",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Porsche"
+          ],
+          "evidence": "that 12 year old 993 model 911 sure looked great to me",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "3180": {
+    "expected": {
+      "post_id": 3180,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "when i test drove the e90",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Seating and passenger space",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "the size seemed smallish to me but livable",
+          "direction": "mixed",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "the drive was nothing short of excellence",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "3453": {
+    "expected": {
+      "post_id": 3453,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "i have all-season tires on my bmw",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Handling, traction, and chassis",
+          "subattribute": "Handling and steering",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "it's easy to ride on the edge of traction at 30 mph",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "3531": {
+    "expected": {
+      "post_id": 3531,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "3562": {
+    "expected": {
+      "post_id": 3562,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "3733": {
+    "expected": {
+      "post_id": 3733,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "the bmw line is currently plagued",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Build quality, reliability, and durability",
+          "subattribute": "Durability and faults",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "the bmw line is currently plagued with fuel pump, rft and intercooler issues",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "3779": {
+    "expected": {
+      "post_id": 3779,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "3800": {
+    "expected": {
+      "post_id": 3800,
+      "brands": [
+        {
+          "brand": "Cadillac",
+          "evidence": "let's go drive a new cts",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "GM",
+          "evidence": "whose spouse is a gm engineer",
+          "kind": "parent",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Dodge",
+          "evidence": "my old 1985 dodge daytona",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "the heavy steering of the bmw",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Mercedes-Benz",
+          "evidence": "many models from bmw and mercedes-benz",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Toyota",
+          "evidence": "the toyota toyota / lexus es crowd",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "lexus es crowd",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Cadillac",
+          "b": "Dodge",
+          "evidence": "sitting lower than in my old 1985 dodge daytona",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Cadillac",
+          "b": "BMW",
+          "evidence": "bmw needn't be worried about this car",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Cadillac",
+          "b": "Mercedes-Benz",
+          "evidence": "so for them, the cts is probably just about perfect",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Cadillac",
+          "b": "Toyota",
+          "evidence": "it seems to be targeted more at the toyota toyota / lexus es crowd",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Cadillac",
+          "b": "Lexus",
+          "evidence": "it seems to be targeted more at the toyota toyota / lexus es crowd",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Styling and exterior design",
+          "subattribute": "Appearance and styling",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "this car is actually halfway decent looking",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Seating and passenger space",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "surprised to find myself sitting lower than in my old 1985 dodge daytona",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Cabin materials and trim",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "the rest of the interior seems to be reasonably well thought out",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Seating and passenger space",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "not a good recipe for a toyota able place to sit on a long drive",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Handling, traction, and chassis",
+          "subattribute": "Handling and steering",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "the steering wasn't as heavy as i would have preferred",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Handling, traction, and chassis",
+          "subattribute": "Handling and steering",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "personally i prefer the heavy steering of the bmw",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Powertrain and transmission",
+          "subattribute": "Transmission",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "i found myself asking out loud how a transmission like that even saw the light of day",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Engine output",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "that engine is seriously anemic",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Ride comfort",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "ride wise, the car was reasonably compliant",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Handling, traction, and chassis",
+          "subattribute": "Handling and steering",
+          "targets": [
+            "Cadillac"
+          ],
+          "evidence": "seemed to handle well enough",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": [
+        "\"mi chevrolet ns\" artifact (minivans), not Chevrolet"
+      ]
+    },
+    "note": ""
+  },
+  "4639": {
+    "expected": {
+      "post_id": 4639,
+      "brands": [
+        {
+          "brand": "Infiniti",
+          "evidence": "infiniti recommends",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Fuel economy and consumption",
+          "targets": [
+            "Infiniti"
+          ],
+          "evidence": "an engine well known for its poor fuel economy",
+          "direction": "negative",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": [
+        "\"pontiac 5\" is the Infiniti G35 here (artifact)",
+        "\"mostly honda driving\" artifact"
+      ]
+    },
+    "note": ""
+  },
+  "4688": {
+    "expected": {
+      "post_id": 4688,
+      "brands": [
+        {
+          "brand": "Nissan",
+          "evidence": "nissan/infiniti is the most expensive to repair",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Infiniti",
+          "evidence": "nissan/infiniti is the most expensive to repair",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Toyota",
+          "evidence": "toyota is the cheapest",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Nissan",
+          "b": "Toyota",
+          "evidence": "toyota is the cheapest",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Infiniti",
+          "b": "Toyota",
+          "evidence": "toyota is the cheapest",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Nissan",
+          "b": "Infiniti",
+          "evidence": "nissan/infiniti is the most expensive to repair out of the asian brands",
+          "kind": "shared_evaluation",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Maintenance and depreciation",
+          "targets": [
+            "Nissan",
+            "Infiniti"
+          ],
+          "evidence": "nissan/infiniti is the most expensive to repair out of the asian brands",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Maintenance and depreciation",
+          "targets": [
+            "Toyota"
+          ],
+          "evidence": "toyota is the cheapest",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": "GM appears only in the quoted claim the author rejects, so it is not coded."
+  },
+  "4695": {
+    "expected": {
+      "post_id": 4695,
+      "brands": [
+        {
+          "brand": "Lexus",
+          "evidence": "i owned a lexus for a brief while",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": "Oil-change claim is the other poster's; the author disputes it."
+  },
+  "5373": {
+    "expected": {
+      "post_id": 5373,
+      "brands": [
+        {
+          "brand": "Nissan",
+          "evidence": "makes the nissan a contender in this category",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Chevrolet",
+          "evidence": "sportier than an chevrolet",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Cadillac",
+          "evidence": "late model cadillac land yachts",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Dodge",
+          "evidence": "a dodge dodge pick-up with a hemi",
+          "kind": "brand",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [
+        {
+          "a": "Nissan",
+          "b": "Chevrolet",
+          "evidence": "true, it is sportier than an chevrolet",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Nissan",
+          "b": "Cadillac",
+          "evidence": "i've heard late model cadillac land yachts that sound better",
+          "kind": "comparison",
+          "certainty": "supported"
+        },
+        {
+          "a": "Nissan",
+          "b": "Dodge",
+          "evidence": "will handily show its taillights to a nissan",
+          "kind": "comparison",
+          "certainty": "supported"
+        }
+      ],
+      "attributes": [
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "Nissan"
+          ],
+          "evidence": "true, it is sportier than an chevrolet",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Driving performance",
+          "targets": [
+            "Chevrolet"
+          ],
+          "evidence": "true, it is sportier than an chevrolet",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Acceleration and speed",
+          "targets": [
+            "Dodge"
+          ],
+          "evidence": "will handily show its taillights to a nissan",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Acceleration and speed",
+          "targets": [
+            "Nissan"
+          ],
+          "evidence": "will handily show its taillights to a nissan",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Body style and vehicle class",
+          "subattribute": "Market segment",
+          "targets": [
+            "Nissan"
+          ],
+          "evidence": "not a very good competitor to the car that make up this class",
+          "direction": "negative",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Ride comfort",
+          "targets": [
+            "Nissan"
+          ],
+          "evidence": "the nissan has been bloated up to be a nice grand touring car",
+          "direction": "mixed",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "5411": {
+    "expected": {
+      "post_id": 5411,
+      "brands": [
+        {
+          "brand": "Mazda",
+          "evidence": "my mazda peed3",
+          "kind": "brand",
+          "certainty": "supported"
+        },
+        {
+          "brand": "BMW",
+          "evidence": "as for my x3 and bmw",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Volkswagen",
+          "evidence": "the guys in the volkswagen",
+          "kind": "brand",
+          "certainty": "uncertain"
+        },
+        {
+          "brand": "Subaru",
+          "evidence": "and subaru boards",
+          "kind": "brand",
+          "certainty": "uncertain"
+        },
+        {
+          "brand": "Audi",
+          "evidence": "troll the audi, infiniti, lexus, or mb boards",
+          "kind": "brand",
+          "certainty": "uncertain"
+        },
+        {
+          "brand": "Infiniti",
+          "evidence": "troll the audi, infiniti, lexus, or mb boards",
+          "kind": "brand",
+          "certainty": "uncertain"
+        },
+        {
+          "brand": "Lexus",
+          "evidence": "troll the audi, infiniti, lexus, or mb boards",
+          "kind": "brand",
+          "certainty": "uncertain"
+        },
+        {
+          "brand": "Hummer",
+          "evidence": "the hummer or land rover boards",
+          "kind": "brand",
+          "certainty": "uncertain"
+        }
+      ],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": "Forum-board names, not vehicle discussion: uncertain. Owned cars are not aspiration."
+  },
+  "5610": {
+    "expected": {
+      "post_id": 5610,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "the current 3 series is a far better car",
+          "kind": "model",
+          "certainty": "supported"
+        },
+        {
+          "brand": "Ford",
+          "evidence": "2011 ford gt v8",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Performance and power",
+          "subattribute": "Acceleration and speed",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "its faster, handles better, stops better",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Handling, traction, and chassis",
+          "subattribute": "Handling and steering",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "its faster, handles better, stops better",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Interior, comfort, and space",
+          "subattribute": "Ride comfort",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "it far better in ride",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Performance and power",
+          "subattribute": "Engine output",
+          "targets": [
+            "Ford"
+          ],
+          "evidence": "2011 ford gt v8 makes more hp then a 69 ford boss 302",
+          "direction": "positive",
+          "certainty": "supported"
+        },
+        {
+          "theme": "Ownership cost and efficiency",
+          "subattribute": "Fuel economy and consumption",
+          "targets": [
+            "Ford"
+          ],
+          "evidence": "gets better fuel mileage then the 69 boss 302",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "5911": {
+    "expected": {
+      "post_id": 5911,
+      "brands": [],
+      "relations": [],
+      "attributes": [],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": ""
+  },
+  "5982": {
+    "expected": {
+      "post_id": 5982,
+      "brands": [
+        {
+          "brand": "BMW",
+          "evidence": "my old 325i",
+          "kind": "model",
+          "certainty": "supported"
+        }
+      ],
+      "relations": [],
+      "attributes": [
+        {
+          "theme": "Powertrain and transmission",
+          "subattribute": "Engine type",
+          "targets": [
+            "BMW"
+          ],
+          "evidence": "i have to admit that the i-6 is intoxicating",
+          "direction": "positive",
+          "certainty": "supported"
+        }
+      ],
+      "aspirations": [],
+      "unresolved": []
+    },
+    "note": "Past ownership; no aspiration."
+  }
+}

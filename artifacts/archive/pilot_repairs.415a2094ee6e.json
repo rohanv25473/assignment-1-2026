@@ -1,0 +1,966 @@
+{
+  "provenance": "415a2094ee6edce6ade03d7df2bef64dd9a0359c7b15c13246fdef3a329b319e",
+  "repairs": [
+    {
+      "post_id": 2242,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Powertrain and transmission",
+        "subattribute": "Drivetrain and traction",
+        "targets": [
+          "Audi"
+        ],
+        "evidence": "even though i&#146;m not even remotely a fan of fwd car , i&#146;d take a fwd audi over the cts in a heartbeat",
+        "direction": "positive",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 1060,
+      "group": "brands",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "brand": "Ferrari",
+        "evidence": "the ferrari 430",
+        "kind": "brand",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 1060,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "a": "Lexus",
+        "b": "Ferrari",
+        "evidence": "the ferrari 430 and porsche 911 turbo",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 1060,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "theme": "Powertrain and transmission",
+        "subattribute": "Transmission",
+        "targets": [
+          "Lexus"
+        ],
+        "evidence": "the notchy clutch",
+        "direction": "negative",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 1688,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "i know a lot more people that have eeked 130k miles out of mercedes-benz than volvos",
+      "after": "i know a lot more people that have eeked 130k miles out of mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz than volvos"
+    },
+    {
+      "post_id": 2907,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "the entire \" ellps segment \" has changed since this thread was created many moons ago. in 2002, the car that were in this class were the e46, mercedes-benz , audi , tl (gen 3), is300",
+      "after": "the entire \" ellps segment \" has changed since this thread was created many moons ago. in 2002, the car that were in this class were the e46, mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz , audi , tl (gen 3), is300"
+    },
+    {
+      "post_id": 2907,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "when the acura came out in 2003, it compared very favorably to the 325i, mercedes-benz , and audi 1.8t",
+      "after": "when the acura came out in 2003, it compared very favorably to the 325i, mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz , and audi 1.8t"
+    },
+    {
+      "post_id": 2907,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "in 2002, the car that were in this class were the e46, mercedes-benz , audi , tl (gen 3), is300",
+      "after": "in 2002, the car that were in this class were the e46, mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz , audi , tl (gen 3), is300"
+    },
+    {
+      "post_id": 2907,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "when the acura came out in 2003, it compared very favorably to the 325i, mercedes-benz , and audi 1.8t",
+      "after": "when the acura came out in 2003, it compared very favorably to the 325i, mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz , and audi 1.8t"
+    },
+    {
+      "post_id": 2907,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "when the acura came out in 2003, it compared very favorably to the 325i, mercedes-benz , and audi 1.8t",
+      "after": "when the acura came out in 2003, it compared very favorably to the 325i, mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz , and audi 1.8t"
+    },
+    {
+      "post_id": 3854,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "the money saved at the pump by choosing a lower grade is only put in the tank later, when you run less efficiently",
+      "after": "5.the money saved at the pump by choosing a lower grade is only put in the tank later, when you run dry"
+    },
+    {
+      "post_id": 3854,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3947,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "i expected a car with the interior room, features, and quality of the audi",
+      "after": "expect a car with the interior room, features, and quality of the audi"
+    },
+    {
+      "post_id": 3947,
+      "group": "aspirations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "brand": "Audi",
+        "evidence": "i'm eager to see the 2008 audi audi 4.2",
+        "category": "conditional",
+        "certainty": "uncertain"
+      },
+      "after": null
+    },
+    {
+      "post_id": 3533,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "IS350",
+      "after": "is350"
+    },
+    {
+      "post_id": 3533,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "IS300",
+      "after": "is300"
+    },
+    {
+      "post_id": 3533,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "IS250",
+      "after": "is250"
+    },
+    {
+      "post_id": 3533,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "IS-F",
+      "after": "is-f"
+    },
+    {
+      "post_id": 3533,
+      "group": "attributes",
+      "action": "targets removed",
+      "reason": "brand not in taxonomy",
+      "before": [
+        "Lexus",
+        "IS350"
+      ],
+      "after": [
+        "Lexus"
+      ]
+    },
+    {
+      "post_id": 3533,
+      "group": "attributes",
+      "action": "targets removed",
+      "reason": "brand not in taxonomy",
+      "before": [
+        "Lexus",
+        "IS350"
+      ],
+      "after": [
+        "Lexus"
+      ]
+    },
+    {
+      "post_id": 3614,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "endpoint missing from brand references",
+      "before": {
+        "a": "BMW",
+        "b": "Honda",
+        "evidence": "honda ing to nada, edmunds, and k toyota",
+        "kind": "comparison",
+        "certainty": "uncertain"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4607,
+      "group": "aspirations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "brand": "Audi",
+        "evidence": "when it came time to order the allroad, i test drove another sort of similar car, an audi 2.0t",
+        "category": "concrete",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4607,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "endpoint missing from brand references",
+      "before": {
+        "a": "Audi",
+        "b": "Cadillac",
+        "evidence": "makes the audi 2.0tfsi a \" better \" choice for someone who wants cts style luxury",
+        "kind": "shared_evaluation",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4685,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4685,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4685,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4685,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4685,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 5813,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4410,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "get a mercedes-benz c230k sedan with manual",
+      "after": "get a mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz c230k sedan with manual"
+    },
+    {
+      "post_id": 4410,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "Light, chevrolet , and well rounded are musts",
+      "after": "light, chevrolet , and well rounded are musts"
+    },
+    {
+      "post_id": 4410,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 708,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Ownership cost and efficiency",
+        "subattribute": "Market positioning",
+        "targets": [
+          "Lincoln",
+          "Cadillac"
+        ],
+        "evidence": "lincoln, like caddy, seems to be more of an also-ran company",
+        "direction": "negative",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 796,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by source text around brand surface",
+      "before": "330i",
+      "after": "lincoln still outperforms......than the bmw 328xi and the mb c230 \" :surprise: \" i thought"
+    },
+    {
+      "post_id": 874,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "the is250 also is right out(underpowered). the 350 is main honda luxury",
+      "after": "is250 also is right out(underpowered). the 350 is main honda luxury"
+    },
+    {
+      "post_id": 874,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "the is250 also is right out(underpowered)",
+      "after": "is250 also is right out(underpowered)."
+    },
+    {
+      "post_id": 4017,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "CTS",
+      "after": "cts"
+    },
+    {
+      "post_id": 4017,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "E350",
+      "after": "e350"
+    },
+    {
+      "post_id": 4017,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "GS350",
+      "after": "gs350"
+    },
+    {
+      "post_id": 4017,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "STS",
+      "after": "sts"
+    },
+    {
+      "post_id": 4017,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "DTS",
+      "after": "dts"
+    },
+    {
+      "post_id": 4017,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "CTS-V",
+      "after": "cts-v"
+    },
+    {
+      "post_id": 4017,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "a": "Cadillac CTS",
+        "b": "BMW 3 Series",
+        "evidence": "directly comparing the cts to the bmw 3 series",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4017,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "a": "Cadillac CTS",
+        "b": "Mercedes-Benz E350",
+        "evidence": "compare those vehicles to the bmw bmw",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4017,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "a": "Cadillac CTS",
+        "b": "Lexus GS350",
+        "evidence": "compare those vehicles to the bmw bmw",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4017,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "a": "Cadillac CTS",
+        "b": "Audi",
+        "evidence": "compare those vehicles to the bmw bmw",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4017,
+      "group": "attributes",
+      "action": "targets removed",
+      "reason": "brand not in taxonomy",
+      "before": [
+        "Cadillac CTS",
+        "Mercedes-Benz E350",
+        "Lexus GS350",
+        "Audi",
+        "BMW 3 Series"
+      ],
+      "after": [
+        "Audi"
+      ]
+    },
+    {
+      "post_id": 4017,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "theme": "Body style and vehicle class",
+        "subattribute": "Market segment",
+        "targets": [
+          "Audi"
+        ],
+        "evidence": "epa class: midsizefor all listed vehicles",
+        "direction": "neutral",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4017,
+      "group": "attributes",
+      "action": "targets removed",
+      "reason": "brand not in taxonomy",
+      "before": [
+        "BMW 3 Series (compact)"
+      ],
+      "after": []
+    },
+    {
+      "post_id": 4017,
+      "group": "attributes",
+      "action": "targets removed",
+      "reason": "brand not in taxonomy",
+      "before": [
+        "Cadillac CTS"
+      ],
+      "after": []
+    },
+    {
+      "post_id": 4017,
+      "group": "attributes",
+      "action": "targets removed",
+      "reason": "brand not in taxonomy",
+      "before": [
+        "Cadillac CTS"
+      ],
+      "after": []
+    },
+    {
+      "post_id": 4017,
+      "group": "attributes",
+      "action": "targets removed",
+      "reason": "brand not in taxonomy",
+      "before": [
+        "Cadillac CTS"
+      ],
+      "after": []
+    },
+    {
+      "post_id": 4245,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "LS400",
+      "after": "ls400"
+    },
+    {
+      "post_id": 4245,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "Q45",
+      "after": "q45"
+    },
+    {
+      "post_id": 4245,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "E300",
+      "after": "e300"
+    },
+    {
+      "post_id": 4245,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "S420",
+      "after": "s420"
+    },
+    {
+      "post_id": 4245,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "S560",
+      "after": "s560"
+    },
+    {
+      "post_id": 4245,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "SL500",
+      "after": "sl500"
+    },
+    {
+      "post_id": 4245,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "SL550",
+      "after": "sl550"
+    },
+    {
+      "post_id": 4245,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "a": "Lexus LS400",
+        "b": "Infiniti Q45",
+        "evidence": "back when the lexus ls400 and infiniti q45 first came out",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4245,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "a": "Lexus LS400",
+        "b": "Mercedes-Benz E300",
+        "evidence": "the lexus and the infiniti were sized between the 5/e and 7/s classes",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4245,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "a": "Infiniti Q45",
+        "b": "Mercedes-Benz S420",
+        "evidence": "the lexus and the infiniti were sized between the 5/e and 7/s classes",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4245,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "what is really interesting is how little mercedes-benz and bmw prices have increased since 1991",
+      "after": "what is really interesting is how little mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz and bmw prices have increased since 1991"
+    },
+    {
+      "post_id": 4245,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "what is really interesting is how little mercedes-benz and bmw prices have increased since 1991",
+      "after": "what is really interesting is how little mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz and bmw prices have increased since 1991"
+    },
+    {
+      "post_id": 4245,
+      "group": "attributes",
+      "action": "targets removed",
+      "reason": "brand not in taxonomy",
+      "before": [
+        "Lexus LS400",
+        "Infiniti Q45"
+      ],
+      "after": []
+    },
+    {
+      "post_id": 4245,
+      "group": "attributes",
+      "action": "targets removed",
+      "reason": "brand not in taxonomy",
+      "before": [
+        "Lexus LS400"
+      ],
+      "after": []
+    },
+    {
+      "post_id": 464,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "i actually prefer the lexus ls to the mercedes-benz . i know it's personal, but i find the lexus appointments to be softer and warmer, which is nice. the mercedes-benz is fantastic, but tends to be more on the hard, teutonic side of luxury.",
+      "after": "i actually prefer the lexus ls to the mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz . i know it's personal, but i find the lexus appointments to be softer and warmer, which is nice. the mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz is fantastic, but tends to be more on the hard, teutonic side of luxury."
+    },
+    {
+      "post_id": 464,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "i find the lexus appointments to be softer and warmer, which is nice. the mercedes-benz is fantastic, but tends to be more on the hard, teutonic side of luxury.",
+      "after": "i find the lexus appointments to be softer and warmer, which is nice. the mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz is fantastic, but tends to be more on the hard, teutonic side of luxury."
+    },
+    {
+      "post_id": 1151,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 1160,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "a business associate of mine bought one with the then optional 17 \" sport wheels and tires (standard were 16 \")",
+      "after": "a business associate of mine bought one with the then optional 17 \" sport wheels and tires (standard were 16 \""
+    },
+    {
+      "post_id": 1160,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 522,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "i see mercedes-benz mercedes-benz using a similar device in the new mercedes-benz",
+      "after": "i see mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz using a similar device in the new mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz"
+    },
+    {
+      "post_id": 522,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 522,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 475,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "it also competes with...audi 6/8",
+      "after": "it also competes with the cadillac sts, audi 6/8"
+    },
+    {
+      "post_id": 475,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "the new volvo , definitely is a luxury car imho",
+      "after": "the volvo , definitely is a luxury car imho."
+    },
+    {
+      "post_id": 460,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "volvo is not a luxury brand compared to lexus",
+      "after": "volvo is not a \" luxury brand \" compared to"
+    },
+    {
+      "post_id": 460,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "volvo is not a luxury brand compared to bmw",
+      "after": "volvo is not a \" luxury brand \" compared to"
+    },
+    {
+      "post_id": 460,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "a": "Volvo",
+        "b": "Mercedes-Benz",
+        "evidence": "volvo is not a luxury brand compared to mercedes-benz",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 460,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "i'd put the volvo closer to the audi , and acura rl kind of car",
+      "after": "i'd put the volvo closer to the audi audi , and acura rl kind of car"
+    },
+    {
+      "post_id": 460,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Powertrain and transmission",
+        "subattribute": "Drivetrain and traction",
+        "targets": [
+          "Volvo"
+        ],
+        "evidence": "they are fwd and don't have any sporting aspirations at all",
+        "direction": "negative",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 460,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "don't pretend for a second that it is fun to drive or sporty",
+      "after": "don't pretend for a second that it is \" fun to drive \" or"
+    },
+    {
+      "post_id": 5512,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "a": "Infiniti",
+        "b": "Acura",
+        "evidence": "i would rate the infiniti first of the ones you mentioned. the tl would be the last vehicle i'd buy",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 2973,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 2973,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3013,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3055,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "bmw vs. mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz : bmw the current mercedes-benz is outdated, over-priced so this one goes to bmw hands down",
+      "after": "bmw vs. mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz : bmw the current mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz is outdated, over-priced so this one goes to bmw hands down"
+    },
+    {
+      "post_id": 3055,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "theme": "Handling, traction, and chassis",
+        "subattribute": "Handling and steering",
+        "targets": [
+          "BMW",
+          "Acura"
+        ],
+        "evidence": "bmw has a not-so-desirable interior but is good in power and handling with the rwd advantage. but the tl is less expensive and has more standard features. both are outstanding sport/luxury sedan",
+        "direction": "positive",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 3055,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "the current mercedes-benz is outdated, over-priced so this one goes to bmw hands down",
+      "after": "the current mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz is outdated, over-priced so this one goes to bmw hands down"
+    },
+    {
+      "post_id": 3055,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3055,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3055,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3067,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3067,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    }
+  ],
+  "failures": [
+    {
+      "post_ids": [
+        65,
+        155,
+        219,
+        253
+      ],
+      "error_type": "AuthenticationError",
+      "message": "Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CfYioKwpZ1GCVNAj193jB'}",
+      "time": 1790730118.799418
+    },
+    {
+      "post_ids": [
+        401,
+        420,
+        442,
+        458
+      ],
+      "error_type": "AuthenticationError",
+      "message": "Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CfYivErvgJhg8my8g5uDX'}",
+      "time": 1790730212.5348537
+    },
+    {
+      "post_ids": [
+        460,
+        464,
+        475,
+        522
+      ],
+      "error_type": "AuthenticationError",
+      "message": "Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CfYj4aohS88Mtrw1v7q6K'}",
+      "time": 1790730325.7485466
+    }
+  ]
+}

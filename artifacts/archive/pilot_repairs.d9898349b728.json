@@ -1,0 +1,301 @@
+{
+  "provenance": "d9898349b728d3469e4cc5c3f0170bafa0763ff806033303d94a8c63f54afa91",
+  "repairs": [
+    {
+      "post_id": 253,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by source text around brand surface",
+      "before": "the tl",
+      "after": "then tl"
+    },
+    {
+      "post_id": 460,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "near-luxury\" brand, most similar to saab and acura in market segment",
+      "after": "near-luxury \" brand, most similar to saab and acura in market segment."
+    },
+    {
+      "post_id": 522,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "whats up with audi anyways",
+      "after": "what's up with audi anyways"
+    },
+    {
+      "post_id": 688,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "I wouldn't say the the lincoln interior is \" awful \" but it's definitly the worst in it's class.",
+      "after": "i wouldn't say the the lincoln interior is \" awful \" but it's definitly the worst in it's class."
+    },
+    {
+      "post_id": 874,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "i personally hate most of what ford puts out. you'll notice i like volvo, the bigger late 90s mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz , the mazda",
+      "after": "i personally hate most of what ford puts out. you'll notice i like volvo, the bigger late 90s mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz , the mazda"
+    },
+    {
+      "post_id": 1037,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "r&t does not view the es as a performance sedan.",
+      "after": "& t does not view the es as a performance sedan."
+    },
+    {
+      "post_id": 1151,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "i was comparing my ideal is350 to my ideal bmw",
+      "after": "i was merely comparing my ideal is350 to my ideal bmw"
+    },
+    {
+      "post_id": 1160,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "my 1995 nissan logged 155k miles",
+      "after": "my 1995 nissan nissan logged 155k miles"
+    },
+    {
+      "post_id": 1708,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "case/whitespace differs",
+      "before": "It will get you better gas mileage",
+      "after": "it will get you better gas mileage"
+    },
+    {
+      "post_id": 2242,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "i’d take a fwd audi over the cts in a heartbeat",
+      "after": "take a fwd audi over the cts in a heartbeat."
+    },
+    {
+      "post_id": 2907,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by source text around brand surface",
+      "before": "a mazda",
+      "after": "an mazda"
+    },
+    {
+      "post_id": 2907,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "a": "Acura",
+        "b": "Audi",
+        "evidence": "it compared very favorably to the 325i, mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz, and audi 1.8t",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 3055,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "the current mercedes-benz is outdated",
+      "after": "the current mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz is outdated"
+    },
+    {
+      "post_id": 3402,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "i am getting a audi",
+      "after": "am getting a audi"
+    },
+    {
+      "post_id": 3402,
+      "group": "aspirations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "brand": "Audi",
+        "evidence": "i am getting a audi",
+        "category": "concrete",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 3947,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Equipment and vehicle features",
+        "subattribute": "Instrument panel",
+        "targets": [
+          "Cadillac"
+        ],
+        "evidence": "i liked the cts's instrument panel",
+        "direction": "positive",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 3947,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Interior, comfort, and space",
+        "subattribute": "Passenger-area windows and ambience",
+        "targets": [
+          "Cadillac"
+        ],
+        "evidence": "the rear passenger area's small windows made for a feeling of incarceration",
+        "direction": "negative",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 3955,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Interior, comfort, and space",
+        "subattribute": "Rear seating and leg room",
+        "targets": [
+          "Cadillac"
+        ],
+        "evidence": "not allow for enough leg room in the rear",
+        "direction": "negative",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 3955,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Interior, comfort, and space",
+        "subattribute": "Rear seat space",
+        "targets": [
+          "Cadillac",
+          "Lexus"
+        ],
+        "evidence": "the cts has one of the absolute worst back seat areas of any sedan i've ridden in in recent memory, errr, except the lexus is",
+        "direction": "negative",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4786,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "a": "Pontiac",
+        "b": "Cadillac",
+        "evidence": "the pontiac 5 means a few years old or certified is also in the consideration... the cts, which is what i'd probably have otherwise recommend",
+        "kind": "purchase_alternatives",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4786,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "a": "Mazda",
+        "b": "Cadillac",
+        "evidence": "considering the mazda 6... the cts, which is what i'd probably have otherwise recommend",
+        "kind": "purchase_alternatives",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 5068,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "theme": "Build quality, reliability, and durability",
+        "subattribute": "Service and warranty",
+        "targets": [
+          "Acura"
+        ],
+        "evidence": "replaced under warranty",
+        "direction": "positive",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 5101,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Ownership cost and efficiency",
+        "subattribute": "Resale value",
+        "targets": [
+          "BMW",
+          "Mercedes-Benz"
+        ],
+        "evidence": "german vehicles have lower resale values then their japanese counterparts",
+        "direction": "negative",
+        "certainty": "uncertain"
+      },
+      "after": null
+    },
+    {
+      "post_id": 5206,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "theme": "Ownership cost and efficiency",
+        "subattribute": "Maintenance and depreciation",
+        "targets": [],
+        "evidence": "i don't want to spend the money on a second set a tires",
+        "direction": "negative",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 5634,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Body style and vehicle class",
+        "subattribute": "Design and proportions",
+        "targets": [
+          "Infiniti"
+        ],
+        "evidence": "infiniti has their highest-end large car, which is good, and proper luxury, but it's also huge",
+        "direction": "negative",
+        "certainty": "supported"
+      },
+      "after": null
+    }
+  ],
+  "failures": []
+}

@@ -8,3 +8,4 @@ nbclient>=0.10,<1
 ipykernel>=6.29,<8
 jsonschema>=4.23,<5
 requests>=2.32,<3
+anthropic>=1.9,<2

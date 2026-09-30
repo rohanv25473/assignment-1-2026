@@ -30,7 +30,7 @@
       "kind": "brand",
       "unambiguous": true,
       "post_id": 9,
-      "evidence": "bmw (or lexus, or acura or..) to cadillac"
+      "evidence": "lexus, or acura"
     },
     {
       "surface": "Acura",
@@ -38,15 +38,7 @@
       "kind": "brand",
       "unambiguous": true,
       "post_id": 9,
-      "evidence": "bmw (or lexus, or acura or..) to cadillac"
-    },
-    {
-      "surface": "Honda",
-      "brand": "Honda",
-      "kind": "brand",
-      "unambiguous": true,
-      "post_id": 39,
-      "evidence": "toyota audi acura honda pontiac"
+      "evidence": "lexus, or acura"
     },
     {
       "surface": "Audi",
@@ -57,6 +49,14 @@
       "evidence": "2.0t audi s"
     },
     {
+      "surface": "Nissan",
+      "brand": "Nissan",
+      "kind": "brand",
+      "unambiguous": true,
+      "post_id": 9,
+      "evidence": "nissan i'm sure"
+    },
+    {
       "surface": "Cadillac",
       "brand": "Cadillac",
       "kind": "brand",
@@ -65,20 +65,28 @@
       "evidence": "i applaud cadillac for having the guts"
     },
     {
-      "surface": "Caddy",
-      "brand": "Cadillac",
-      "kind": "alias",
-      "unambiguous": true,
-      "post_id": 9,
-      "evidence": "to find someone who finds a 4-5 year old caddy an attractive car. they may be out there"
-    },
-    {
       "surface": "caddy",
       "brand": "Cadillac",
       "kind": "alias",
       "unambiguous": true,
-      "post_id": 24,
-      "evidence": "another problem for caddy is that"
+      "post_id": 9,
+      "evidence": "a 4-5 year old caddy"
+    },
+    {
+      "surface": "Honda",
+      "brand": "Honda",
+      "kind": "brand",
+      "unambiguous": true,
+      "post_id": 39,
+      "evidence": "audi acura honda pontiac"
+    },
+    {
+      "surface": "Pontiac",
+      "brand": "Pontiac",
+      "kind": "brand",
+      "unambiguous": true,
+      "post_id": 39,
+      "evidence": "honda pontiac lexus infiniti"
     },
     {
       "surface": "Infiniti",
@@ -89,36 +97,12 @@
       "evidence": "infiniti is doing the same thing"
     },
     {
-      "surface": "Pontiac",
-      "brand": "Pontiac",
-      "kind": "brand",
-      "unambiguous": true,
-      "post_id": 10,
-      "evidence": "the 2004' pontiac was the beginning of change"
-    },
-    {
-      "surface": "Nissan",
-      "brand": "Nissan",
-      "kind": "brand",
-      "unambiguous": true,
-      "post_id": 9,
-      "evidence": "from 1995 to present i own a nissan"
-    },
-    {
       "surface": "Mercedes-Benz",
       "brand": "Mercedes-Benz",
       "kind": "brand",
       "unambiguous": true,
       "post_id": 7,
-      "evidence": "mercedes-benz mercedes-benz mercedes-benz"
-    },
-    {
-      "surface": "MB",
-      "brand": "Mercedes-Benz",
-      "kind": "alias",
-      "unambiguous": true,
-      "post_id": 97,
-      "evidence": "european car like bmw and mb tend to have issues"
+      "evidence": "mercedes-benz mercedes-benz"
     },
     {
       "surface": "Porsche",
@@ -134,7 +118,7 @@
       "kind": "brand",
       "unambiguous": true,
       "post_id": 2,
-      "evidence": "twice the price of a chevrolet"
+      "evidence": "the price of a chevrolet"
     },
     {
       "surface": "Ford",
@@ -150,7 +134,7 @@
       "kind": "brand",
       "unambiguous": true,
       "post_id": 98,
-      "evidence": "a volkswagen cart namned lotus elise"
+      "evidence": "a volkswagen cart"
     },
     {
       "surface": "Dodge",
@@ -158,7 +142,7 @@
       "kind": "brand",
       "unambiguous": true,
       "post_id": 98,
-      "evidence": "the awd, 4ws, dodge dodge"
+      "evidence": "the awd, 4ws, dodge"
     },
     {
       "surface": "Volvo",
@@ -174,7 +158,7 @@
       "kind": "brand",
       "unambiguous": true,
       "post_id": 39,
-      "evidence": "rocky hyundai kia bmw"
+      "evidence": "rocky hyundai kia"
     },
     {
       "surface": "Kia",
@@ -182,15 +166,7 @@
       "kind": "brand",
       "unambiguous": true,
       "post_id": 39,
-      "evidence": "hyundai kia bmw toyota"
-    },
-    {
-      "surface": "Subaru",
-      "brand": "Subaru",
-      "kind": "brand",
-      "unambiguous": true,
-      "post_id": 16,
-      "evidence": "life. subaru . and the pursuit"
+      "evidence": "hyundai kia bmw"
     },
     {
       "surface": "Buick",
@@ -214,7 +190,7 @@
       "kind": "brand",
       "unambiguous": true,
       "post_id": 10,
-      "evidence": "take a saturn saturn sometime"
+      "evidence": "the previous generation. habitat, take a saturn saturn sometime when you get a chance for"
     },
     {
       "surface": "Lincoln",
@@ -222,15 +198,23 @@
       "kind": "brand",
       "unambiguous": true,
       "post_id": 214,
-      "evidence": "the lincoln is horrible compared to the ca"
+      "evidence": "lincoln:whoa, what are they thinking?"
+    },
+    {
+      "surface": "Subaru",
+      "brand": "Subaru",
+      "kind": "brand",
+      "unambiguous": true,
+      "post_id": 16,
+      "evidence": "life. subaru . and the pursuit"
     },
     {
       "surface": "Mazda",
       "brand": "Mazda",
       "kind": "brand",
       "unambiguous": true,
-      "post_id": 896,
-      "evidence": "a 2004 mazda is closer to $12k"
+      "post_id": 37,
+      "evidence": "subaru =&engine=&fuel=&doors=&style_flag=1&pager.offset=75&first_record=7 mazda"
     },
     {
       "surface": "Saab",
@@ -241,20 +225,44 @@
       "evidence": "i think saab fits here"
     },
     {
-      "surface": "Mini",
-      "brand": "Mini",
-      "kind": "brand",
-      "unambiguous": true,
-      "post_id": 3593,
-      "evidence": "your mini cooper s so far"
-    },
-    {
       "surface": "Mitsubishi",
       "brand": "Mitsubishi",
       "kind": "brand",
       "unambiguous": true,
       "post_id": 110,
       "evidence": "considered the mitsubishi 3000gt vr4"
+    },
+    {
+      "surface": "Hummer",
+      "brand": "Hummer",
+      "kind": "brand",
+      "unambiguous": true,
+      "post_id": 27,
+      "evidence": "a hummer can outperform a model t"
+    },
+    {
+      "surface": "Mini",
+      "brand": "Mini",
+      "kind": "brand",
+      "unambiguous": true,
+      "post_id": 3593,
+      "evidence": "your mini cooper s"
+    },
+    {
+      "surface": "Bugatti",
+      "brand": "Bugatti",
+      "kind": "brand",
+      "unambiguous": true,
+      "post_id": 50,
+      "evidence": "can't afford a bugatti"
+    },
+    {
+      "surface": "Holden",
+      "brand": "Holden",
+      "kind": "brand",
+      "unambiguous": true,
+      "post_id": 65,
+      "evidence": "holden commodore coming to u.s."
     },
     {
       "surface": "GM",
@@ -270,15 +278,15 @@
       "kind": "model",
       "unambiguous": true,
       "post_id": 2,
-      "evidence": "a car like the cts"
+      "evidence": "build and market a car like the cts"
     },
     {
       "surface": "CTS-V",
       "brand": "Cadillac",
       "kind": "model",
       "unambiguous": true,
-      "post_id": 13,
-      "evidence": "the cts-v will be going after"
+      "post_id": 6,
+      "evidence": "the cts-v will beat it"
     },
     {
       "surface": "STS",
@@ -294,7 +302,47 @@
       "kind": "model",
       "unambiguous": true,
       "post_id": 24,
-      "evidence": "going to go to dts"
+      "evidence": "go to dts since its definitely not up to par"
+    },
+    {
+      "surface": "Solstice",
+      "brand": "Pontiac",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 2,
+      "evidence": "solstice/sky, chevrolet , cts"
+    },
+    {
+      "surface": "Sky",
+      "brand": "Pontiac",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 2,
+      "evidence": "solstice/sky, chevrolet , cts"
+    },
+    {
+      "surface": "Aurora",
+      "brand": "Oldsmobile",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 10,
+      "evidence": "2002 oldsmobile aurora"
+    },
+    {
+      "surface": "Lucerne",
+      "brand": "Buick",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 10,
+      "evidence": "the lucerne is another nice piece of quality"
+    },
+    {
+      "surface": "X-Type",
+      "brand": "Jaguar",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 7,
+      "evidence": "the x-type has no business here"
     },
     {
       "surface": "3 Series",
@@ -305,12 +353,52 @@
       "evidence": "i have 2 friends that own 3 series"
     },
     {
+      "surface": "7 Series",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 24,
+      "evidence": "move up the ladder to the 5, 6 and 7 series"
+    },
+    {
       "surface": "330i",
       "brand": "BMW",
       "kind": "model",
       "unambiguous": true,
       "post_id": 23,
-      "evidence": "a great deal on the 330i"
+      "evidence": "you did a great deal on the 330i"
+    },
+    {
+      "surface": "335",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 13,
+      "evidence": "people shopping a 335 are going to buy a cts-v"
+    },
+    {
+      "surface": "335xi",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 645,
+      "evidence": "the awd 335xi runs 0-60"
+    },
+    {
+      "surface": "325is",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 5,
+      "evidence": "the bmw 325is"
+    },
+    {
+      "surface": "325i",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 199,
+      "evidence": "loaner (x3, 325i or even worse"
     },
     {
       "surface": "328xi",
@@ -329,6 +417,62 @@
       "evidence": "right now a 530i is a decent deal"
     },
     {
+      "surface": "550i",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 195,
+      "evidence": "the bmw and 550i 6-speed"
+    },
+    {
+      "surface": "540",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 172,
+      "evidence": "his e39 540 on the otherhand"
+    },
+    {
+      "surface": "E90",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 23,
+      "evidence": "it's the first model year of the e90"
+    },
+    {
+      "surface": "E46",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 52,
+      "evidence": "and got $45k. this was $4k more than my e46. seems reasonable for more horsepower and"
+    },
+    {
+      "surface": "E39",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 101,
+      "evidence": "my e39 530"
+    },
+    {
+      "surface": "E30",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 172,
+      "evidence": "one of his bmw - an e30 352"
+    },
+    {
+      "surface": "E36",
+      "brand": "BMW",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 1658,
+      "evidence": "a '97-'98 bmw e36 bmw 4 door"
+    },
+    {
       "surface": "X3",
       "brand": "BMW",
       "kind": "model",
@@ -342,79 +486,23 @@
       "kind": "model",
       "unambiguous": true,
       "post_id": 127,
-      "evidence": "my dad has an '04 x5 3.0ia"
+      "evidence": "an '04 x5 3.0ia"
     },
     {
-      "surface": "E90",
+      "surface": "1-Series",
       "brand": "BMW",
       "kind": "model",
       "unambiguous": true,
-      "post_id": 23,
-      "evidence": "first model year of the e90"
+      "post_id": 1401,
+      "evidence": "what blue need is the 1-series"
     },
     {
-      "surface": "E46",
+      "surface": "135i",
       "brand": "BMW",
       "kind": "model",
       "unambiguous": true,
-      "post_id": 52,
-      "evidence": "and got $45k. this was $4k more than my e46. seems reasonable for more horsepower and"
-    },
-    {
-      "surface": "911",
-      "brand": "Porsche",
-      "kind": "model",
-      "unambiguous": true,
-      "post_id": 2,
-      "evidence": "why is a porsche 911 twice the price"
-    },
-    {
-      "surface": "Cayenne",
-      "brand": "Porsche",
-      "kind": "model",
-      "unambiguous": true,
-      "post_id": 9,
-      "evidence": "a 911 turbo, cayenne turbo"
-    },
-    {
-      "surface": "Boxster S",
-      "brand": "Porsche",
-      "kind": "model",
-      "unambiguous": true,
-      "post_id": 7,
-      "evidence": "porsche boxster s"
-    },
-    {
-      "surface": "TL",
-      "brand": "Acura",
-      "kind": "model",
-      "unambiguous": true,
-      "post_id": 90,
-      "evidence": "the 2009' acura tl w/ sh-awd"
-    },
-    {
-      "surface": "TL-S",
-      "brand": "Acura",
-      "kind": "model",
-      "unambiguous": true,
-      "post_id": 102,
-      "evidence": "unless you go to the tl-s model"
-    },
-    {
-      "surface": "RL",
-      "brand": "Acura",
-      "kind": "model",
-      "unambiguous": true,
-      "post_id": 94,
-      "evidence": "the rl and (new) base tl"
-    },
-    {
-      "surface": "S2000",
-      "brand": "Honda",
-      "kind": "model",
-      "unambiguous": true,
-      "post_id": 110,
-      "evidence": "real sports car (honda s2000)"
+      "post_id": 3593,
+      "evidence": "the 135i coming to us next year"
     },
     {
       "surface": "IS350",
@@ -438,15 +526,7 @@
       "kind": "model",
       "unambiguous": true,
       "post_id": 115,
-      "evidence": "lexus es350, acura tl"
-    },
-    {
-      "surface": "GS350",
-      "brand": "Lexus",
-      "kind": "model",
-      "unambiguous": true,
-      "post_id": 318,
-      "evidence": "gs350/430/450h"
+      "evidence": "lexus es350"
     },
     {
       "surface": "LS400",
@@ -457,12 +537,44 @@
       "evidence": "early 90's ls400's"
     },
     {
-      "surface": "M45",
-      "brand": "Infiniti",
+      "surface": "GS350",
+      "brand": "Lexus",
       "kind": "model",
       "unambiguous": true,
-      "post_id": 13,
-      "evidence": "a 550, i cannot see getting a cts-v, but an m45 buyer"
+      "post_id": 318,
+      "evidence": "gs350/430/450h"
+    },
+    {
+      "surface": "IS300",
+      "brand": "Lexus",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 442,
+      "evidence": "a new is300"
+    },
+    {
+      "surface": "TL",
+      "brand": "Acura",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 90,
+      "evidence": "the 2007' tl type-sh"
+    },
+    {
+      "surface": "TL-S",
+      "brand": "Acura",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 102,
+      "evidence": "unless you go to the tl-s model"
+    },
+    {
+      "surface": "RL",
+      "brand": "Acura",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 94,
+      "evidence": "the rl and (new) base tl"
     },
     {
       "surface": "S4",
@@ -481,20 +593,20 @@
       "evidence": "the second fastest is the rs4"
     },
     {
+      "surface": "S5",
+      "brand": "Audi",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 4197,
+      "evidence": "the new audi s5 intrigues me"
+    },
+    {
       "surface": "E320",
       "brand": "Mercedes-Benz",
       "kind": "model",
       "unambiguous": true,
       "post_id": 236,
       "evidence": "recommend the new e320 bluetec"
-    },
-    {
-      "surface": "C350",
-      "brand": "Mercedes-Benz",
-      "kind": "model",
-      "unambiguous": true,
-      "post_id": 429,
-      "evidence": "the c350"
     },
     {
       "surface": "C230",
@@ -505,234 +617,254 @@
       "evidence": "mercedez c230"
     },
     {
+      "surface": "C350",
+      "brand": "Mercedes-Benz",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 429,
+      "evidence": "the c350"
+    },
+    {
+      "surface": "911",
+      "brand": "Porsche",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 2,
+      "evidence": "why is a porsche 911 twice the price"
+    },
+    {
+      "surface": "Cayenne",
+      "brand": "Porsche",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 9,
+      "evidence": "a 911 turbo, cayenne turbo"
+    },
+    {
+      "surface": "Carrera GT",
+      "brand": "Porsche",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 10,
+      "evidence": "and carrera gt combined"
+    },
+    {
+      "surface": "Boxster S",
+      "brand": "Porsche",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 7,
+      "evidence": "porsche boxster s"
+    },
+    {
+      "surface": "Cayman S",
+      "brand": "Porsche",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 911,
+      "evidence": "the sti, c6 chevrolet , cayman s"
+    },
+    {
+      "surface": "S2000",
+      "brand": "Honda",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 110,
+      "evidence": "a real sports car (honda s2000)"
+    },
+    {
+      "surface": "3000GT",
+      "brand": "Mitsubishi",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 110,
+      "evidence": "the mitsubishi 3000gt vr4"
+    },
+    {
+      "surface": "Commodore",
+      "brand": "Holden",
+      "kind": "model",
+      "unambiguous": true,
+      "post_id": 65,
+      "evidence": "holden commodore coming to u.s."
+    },
+    {
       "surface": "S40",
       "brand": "Volvo",
       "kind": "model",
       "unambiguous": true,
       "post_id": 394,
-      "evidence": "saab 9-3 and volvo s40"
+      "evidence": "volvo s40 are clearly"
     },
     {
-      "surface": "9-3",
-      "brand": "Saab",
+      "surface": "850",
+      "brand": "Volvo",
       "kind": "model",
       "unambiguous": true,
-      "post_id": 394,
-      "evidence": "saab 9-3 and volvo s40"
+      "post_id": 455,
+      "evidence": "the 850 turbo was one of the top"
     },
     {
-      "surface": "Cooper S",
-      "brand": "Mini",
+      "surface": "T5",
+      "brand": "Volvo",
       "kind": "model",
       "unambiguous": true,
-      "post_id": 3593,
-      "evidence": "your mini cooper s so far"
+      "post_id": 442,
+      "evidence": "a bare-bones t5 model"
     },
     {
-      "surface": "3000GT VR4",
-      "brand": "Mitsubishi",
+      "surface": "Z06",
+      "brand": "Chevrolet",
       "kind": "model",
       "unambiguous": true,
-      "post_id": 110,
-      "evidence": "mitsubishi 3000gt vr4"
+      "post_id": 569,
+      "evidence": "the new z06 chassis"
+    },
+    {
+      "surface": "Pontiac 5",
+      "brand": "Unknown",
+      "kind": "model",
+      "unambiguous": false,
+      "post_id": 325,
+      "evidence": "models pontiac 5 - $31,450"
+    },
+    {
+      "surface": "MB",
+      "brand": "Unknown",
+      "kind": "alias",
+      "unambiguous": false,
+      "post_id": 97,
+      "evidence": "european car like bmw and mb"
+    },
+    {
+      "surface": "G",
+      "brand": "Unknown",
+      "kind": "model",
+      "unambiguous": false,
+      "post_id": 2086,
+      "evidence": "blue,what about the g?"
     }
   ],
   "themes": [
     {
-      "theme": "Performance and acceleration",
+      "theme": "Performance and power",
       "subattributes": [
         {
           "name": "Engine output",
           "phrases": [
             "600 hp",
-            "100 hp advantage",
-            "227 bhp"
+            "500 hp",
+            "100 lbs of torque"
           ]
         },
         {
           "name": "Acceleration and speed",
           "phrases": [
-            "0-60 in about 4 flat",
-            "4.7 seconds",
+            "0-60",
+            "4 secs to 60",
             "top speed of 150mpg"
           ]
         },
         {
-          "name": "Torque",
+          "name": "Driving performance",
           "phrases": [
-            "detriot torque",
-            "100 lbs of torque",
-            "torque steer"
+            "entry level performance luxury",
+            "fastest sedan through the slalom"
           ]
         }
       ],
-      "rationale": "Vehicle output and acceleration are recurring points of direct comparison."
+      "rationale": "Vehicle capability is discussed through output, acceleration, speed, and measured performance."
     },
     {
-      "theme": "Handling and driving dynamics",
+      "theme": "Handling, traction, and chassis",
       "subattributes": [
         {
-          "name": "Handling and cornering",
+          "name": "Handling and steering",
           "phrases": [
             "crisp handling",
             "benchmark handling",
-            "handles or accelerates"
+            "torque steer"
           ]
         },
         {
-          "name": "Ride and road behavior",
+          "name": "Drivetrain and traction",
           "phrases": [
-            "far better ride",
-            "bumpy road",
-            "nimble car"
-          ]
-        },
-        {
-          "name": "Braking and grip",
-          "phrases": [
-            "70-0 numbers",
-            "traction in snow or ice",
-            "soft brakes"
-          ]
-        }
-      ],
-      "rationale": "The evidence discusses how vehicles handle, ride, and behave under braking or on low-grip roads."
-    },
-    {
-      "theme": "Drivetrain and transmission",
-      "subattributes": [
-        {
-          "name": "Driven wheels",
-          "phrases": [
-            "rwd sport sedan",
-            "fwd platform",
-            "awd system adds weight",
+            "awd",
+            "rwd",
+            "fwd",
             "sh-awd"
           ]
         },
         {
-          "name": "Transmission type",
+          "name": "Suspension, weight, and tires",
           "phrases": [
-            "6-speed manual",
-            "manual transmission",
-            "automatic transmission",
-            "6-speed stick"
+            "sport-tuned suspension",
+            "added weight",
+            "winter tires"
           ]
         }
       ],
-      "rationale": "Drivetrain layout and transmission choices are explicit vehicle configuration attributes."
+      "rationale": "The evidence compares vehicle dynamics, drive layouts, chassis setup, and traction equipment."
     },
     {
-      "theme": "Fuel economy and fuel requirements",
+      "theme": "Powertrain and transmission",
       "subattributes": [
         {
-          "name": "Fuel consumption",
+          "name": "Engine type",
           "phrases": [
-            "40mpg",
-            "fuel economy",
-            "same epa numbers"
+            "6 cylinder",
+            "v6",
+            "turbo engines"
           ]
         },
         {
-          "name": "Fuel type or grade",
+          "name": "Transmission",
+          "phrases": [
+            "6-speed manual",
+            "automatic transmission",
+            "manual tranny"
+          ]
+        },
+        {
+          "name": "Fuel type and use",
           "phrases": [
             "non-premium gas",
             "premium gas",
-            "gas thirsty vehicles"
+            "diesel"
           ]
         }
       ],
-      "rationale": "The corpus compares economy figures and the fuel requirements or consumption of vehicles."
+      "rationale": "These phrases describe vehicle powertrain configuration and transmission."
     },
     {
       "theme": "Interior, comfort, and space",
       "subattributes": [
         {
-          "name": "Cabin space and seating",
+          "name": "Cabin materials and trim",
           "phrases": [
-            "back seat",
-            "roomy as it in the back seat",
-            "fit in the backseat"
+            "leather-trimmed interior",
+            "wood interiors",
+            "pleather"
           ]
         },
         {
-          "name": "Interior materials and finish",
+          "name": "Seating and passenger space",
           "phrases": [
-            "leather-trimmed interior",
-            "interior down to european levels",
-            "wood interiors"
+            "back seat",
+            "fit in the backseat",
+            "roomy"
           ]
         },
         {
           "name": "Ride comfort",
           "phrases": [
             "far better ride",
-            "soft suspension",
-            "sitting style"
+            "softer-sprung",
+            "quiet"
           ]
         }
       ],
-      "rationale": "Interior room, materials, seating, and ride comfort are described as vehicle characteristics."
-    },
-    {
-      "theme": "Reliability, durability, and quality",
-      "subattributes": [
-        {
-          "name": "Reliability and service life",
-          "phrases": [
-            "reliable vehicle",
-            "last 10-15 years",
-            "155k miles"
-          ]
-        },
-        {
-          "name": "Build and control quality",
-          "phrases": [
-            "true build quality",
-            "lousy quality control",
-            "signs of quality"
-          ]
-        },
-        {
-          "name": "Faults and durability concerns",
-          "phrases": [
-            "electrical issues",
-            "squeeks and rattles",
-            "falling apart"
-          ]
-        }
-      ],
-      "rationale": "Evidence covers dependability, longevity, quality control, and recurring vehicle problems."
-    },
-    {
-      "theme": "Price, depreciation, and ownership costs",
-      "subattributes": [
-        {
-          "name": "Purchase and configuration price",
-          "phrases": [
-            "$43,500 car",
-            "purchase price",
-            "sport suspension package is roughly $44-45k"
-          ]
-        },
-        {
-          "name": "Depreciation and residual value",
-          "phrases": [
-            "50% of its purchase-time price",
-            "lease residual",
-            "resale so well"
-          ]
-        },
-        {
-          "name": "Maintenance and repair expense",
-          "phrases": [
-            "maintenance/repair costs",
-            "$1k brake job",
-            "expenses of brakes and tires"
-          ]
-        }
-      ],
-      "rationale": "The discussion repeatedly compares vehicle purchase cost, resale value, and ownership expenses."
+      "rationale": "The evidence covers cabin materials, passenger room, seating, and ride qualities."
     },
     {
       "theme": "Equipment and vehicle features",
@@ -740,84 +872,165 @@
         {
           "name": "Packages and options",
           "phrases": [
-            "sport package",
             "luxury package",
+            "sports package",
             "fully loaded"
           ]
         },
         {
-          "name": "Driver assistance and navigation",
+          "name": "Driver and convenience equipment",
           "phrases": [
-            "adaptive front lighting system",
-            "dvd navigation system",
-            "pre-collision"
-          ]
-        },
-        {
-          "name": "Convenience equipment",
-          "phrases": [
-            "heated and ventilated front seat",
-            "power tilt-and-telescopic steering column",
+            "navigation system",
+            "power driver's seat",
             "rain-sensing intermittent windshield wipers"
           ]
+        },
+        {
+          "name": "Wheels and lighting",
+          "phrases": [
+            "18-inch alloy wheels",
+            "adaptive front lighting system",
+            "moonroof"
+          ]
         }
       ],
-      "rationale": "Specific equipment, optional packages, and installed features are described and compared."
+      "rationale": "Specific equipment, options, and feature packages are vehicle attributes."
     },
     {
-      "theme": "Vehicle styling and body configuration",
+      "theme": "Build quality, reliability, and durability",
       "subattributes": [
         {
-          "name": "Body style and segment",
+          "name": "Reliability and quality",
           "phrases": [
-            "sport sedan",
-            "sports car",
-            "4-door sedan"
+            "true build quality",
+            "reliable vehicle",
+            "quality control"
           ]
         },
         {
-          "name": "Exterior and interior design",
+          "name": "Durability and faults",
           "phrases": [
-            "brilliant styling",
-            "wrap around saab interior",
-            "front of that mercedes-benz"
+            "squeeks and rattles",
+            "electrical issues",
+            "falling apart"
+          ]
+        },
+        {
+          "name": "Service and warranty",
+          "phrases": [
+            "routine maintenance",
+            "warranty repairs",
+            "out of warranty"
           ]
         }
       ],
-      "rationale": "The evidence discusses body configuration and vehicle design apart from general praise."
+      "rationale": "The corpus discusses vehicle reliability, construction, faults, service, and warranty coverage."
+    },
+    {
+      "theme": "Ownership cost and efficiency",
+      "subattributes": [
+        {
+          "name": "Purchase price and value",
+          "phrases": [
+            "purchase price",
+            "fair price",
+            "price-competitive"
+          ]
+        },
+        {
+          "name": "Fuel economy and consumption",
+          "phrases": [
+            "fuel economy",
+            "40mpg",
+            "gas thirsty vehicles"
+          ]
+        },
+        {
+          "name": "Maintenance and depreciation",
+          "phrases": [
+            "maintenance/repair costs",
+            "depreciation",
+            "resale value"
+          ]
+        }
+      ],
+      "rationale": "These are vehicle-related costs and efficiency considerations, not general financial chatter."
+    },
+    {
+      "theme": "Styling and exterior design",
+      "subattributes": [
+        {
+          "name": "Appearance and styling",
+          "phrases": [
+            "brilliant styling",
+            "style",
+            "front of that mercedes-benz"
+          ]
+        },
+        {
+          "name": "Design and proportions",
+          "phrases": [
+            "design and technology",
+            "front heavy",
+            "small, fast"
+          ]
+        }
+      ],
+      "rationale": "The cited evidence evaluates vehicle appearance, styling, and exterior/design proportions."
+    },
+    {
+      "theme": "Body style and vehicle class",
+      "subattributes": [
+        {
+          "name": "Body configuration",
+          "phrases": [
+            "sport sedan",
+            "coupe",
+            "sedan"
+          ]
+        },
+        {
+          "name": "Vehicle type",
+          "phrases": [
+            "suv's",
+            "trucks",
+            "sports car"
+          ]
+        },
+        {
+          "name": "Market segment",
+          "phrases": [
+            "entry level luxury performance sedan",
+            "luxury sports sedan"
+          ]
+        }
+      ],
+      "rationale": "The evidence distinguishes vehicle body styles, types, and automotive classes."
     }
   ],
   "unresolved": [
     {
-      "surface": "ellps",
-      "reason": "Appears in a thread-reference fragment and is not established as a vehicle marque or model."
+      "surface": "Pontiac 5",
+      "reason": "The wording appears to be a replacement or corruption artifact; contexts also use it in pricing and segment comparisons that do not reliably identify a Pontiac model."
     },
     {
-      "surface": "pontiac 5",
-      "reason": "Repeated forms such as “pontiac 5” and “pontiac 5s” appear to be replacement or corruption artifacts; the supplied context does not establish a genuine model name."
-    },
-    {
-      "surface": "infiniti pontiac 5",
-      "reason": "The phrase occurs in apparently corrupted model references and does not support a clear model mapping."
-    },
-    {
-      "surface": "toyota icated",
-      "reason": "Toyota is spliced into ordinary words in this apparent replacement artifact; it is not a genuine Toyota reference."
-    },
-    {
-      "surface": "audi audi",
-      "reason": "Duplicated token in apparent text-replacement output; the duplication itself is not a distinct model or alias."
-    },
-    {
-      "surface": "TL",
-      "reason": "The short form is used as a model in clear Acura context, but isolated occurrences of “tl” elsewhere cannot be resolved independently."
+      "surface": "MB",
+      "reason": "This short form may mean Mercedes-Benz in context, but it is not sufficiently explicit to treat as an unambiguous marque alias."
     },
     {
       "surface": "G",
-      "reason": "A one-letter short form appears in a corrupted comparison snippet and is too ambiguous to map."
+      "reason": "The isolated letter in “what about the g?” does not identify a specific marque or model."
     },
     {
-      "surface": "335i",
+      "surface": "mercedes-benz mercedes-benz (repeated strings)",
+      "reason": "Repeated brand tokens appear to be replacement artifacts; they are not distinct aliases or model references."
+    },
+    {
+      "surface": "audi audi (repeated strings)",
+      "reason": "The duplicated token appears as a replacement artifact in the supplied text, not a separate model or marque."
+    },
+    {
+      "surface": "5 Series",
       "reason": "Evidence for BMW not found in source text."
     }
   ]

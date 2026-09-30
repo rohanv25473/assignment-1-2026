@@ -1,0 +1,480 @@
+{
+  "provenance": "597706c7fc7ae3aecdf5357f484b48c35e82abd78a4217bf9c82569518fe4e47",
+  "repairs": [
+    {
+      "post_id": 253,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "a": "Audi",
+        "b": "Infiniti",
+        "evidence": "the audi looks pretty bad, too. the red '80s looking displays have to go, imho. i'd have to say the infiniti looks the best to me",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 253,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "a": "Mercedes-Benz",
+        "b": "Infiniti",
+        "evidence": "the mb looks the least inviting to me. the audi looks pretty bad, too. i'd have to say the infiniti looks the best to me",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 253,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 2242,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Powertrain and transmission",
+        "subattribute": "Drivetrain and traction",
+        "targets": [
+          "Audi"
+        ],
+        "evidence": "even though i&#146;m not even remotely a fan of fwd car",
+        "direction": "negative",
+        "certainty": "uncertain"
+      },
+      "after": null
+    },
+    {
+      "post_id": 1642,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "they represent more than a half buick of dedicated commitment to producing some of the finest engineered car in the world",
+      "after": "it represents more than a half buick of dedicated commitment to producing some of the finest engineered car in the world."
+    },
+    {
+      "post_id": 1688,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "i know a lot more people that have eeked 130k miles out of mercedes-benz than volvos",
+      "after": "i know a lot more people that have eeked 130k miles out of mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz than volvos"
+    },
+    {
+      "post_id": 1060,
+      "group": "brands",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "brand": "Ferrari",
+        "evidence": "crowned the slushbox amg sl65 the king of sports car over the ferrari 430",
+        "kind": "brand",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 1060,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "brand not in taxonomy",
+      "before": {
+        "a": "Lexus",
+        "b": "Ferrari",
+        "evidence": "the slushbox amg sl65 the king of sports car over the ferrari 430 and porsche 911 turbo",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 793,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "the bmw was designed from the ground up to be a premium, benchmark setting entry-level luxury performance car",
+      "after": "the bmw bmw was designed from the ground up to be a premium, benchmark setting entry-level luxury performance car"
+    },
+    {
+      "post_id": 874,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by source text around brand surface",
+      "before": "the is250 also is right out",
+      "after": "either.- is250 also is right"
+    },
+    {
+      "post_id": 874,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "the is250 also is right out(underpowered)",
+      "after": "is250 also is right out(underpowered)."
+    },
+    {
+      "post_id": 874,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "the is250 also is right out(underpowered)",
+      "after": "is250 also is right out(underpowered)."
+    },
+    {
+      "post_id": 3854,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "the money saved at the pump by choosing a lower grade is only put in the tank later, when you run less efficiently",
+      "after": "5.the money saved at the pump by choosing a lower grade is only put in the tank later, when you run dry"
+    },
+    {
+      "post_id": 3854,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3955,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "the gm engineer that decided to put the seat (both front and rear) so low to the floor and then not allow for enough leg room in the rear to allow a rear seat passenger's lower thigh to toyota ably rest on the seat cushion",
+      "after": "the gm engineer that decided to put the seat (both front and rear) so low to the floor and then not allow for enough leg room in the rear to allow a rear seat passenger&#146;s lower thigh to toyota ably rest on the seat cushion"
+    },
+    {
+      "post_id": 460,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "volvo is not a \" luxury brand \" compared to mercedes-benz",
+      "after": "volvo is not a \" luxury brand \" compared to"
+    },
+    {
+      "post_id": 460,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "volvo is not a \" luxury brand \" compared to bmw",
+      "after": "volvo is not a \" luxury brand \" compared to"
+    },
+    {
+      "post_id": 460,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "i'd put the volvo closer to the audi and acura rl kind of car",
+      "after": "i'd put the volvo closer to the audi audi , and acura rl kind of car"
+    },
+    {
+      "post_id": 464,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "the mercedes-benz is fantastic, but tends to be more on the hard, teutonic side of luxury",
+      "after": "the mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz is fantastic, but tends to be more on the hard, teutonic side of luxury"
+    },
+    {
+      "post_id": 475,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "a": "Volvo",
+        "b": "Lexus",
+        "evidence": "it also competes with maybe a lexus ls ?",
+        "kind": "purchase_alternatives",
+        "certainty": "uncertain"
+      },
+      "after": null
+    },
+    {
+      "post_id": 522,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "i see mercedes-benz using a similar device in the new mercedes-benz",
+      "after": "i see mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz using a similar device in the new mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz"
+    },
+    {
+      "post_id": 522,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "whats that bmw i-drive bs gadget i see on the center console ? i see mercedes-benz using a similar device",
+      "after": "whats that bmw i-drive bs gadget i see on the center console ? i see mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz using a similar device"
+    },
+    {
+      "post_id": 522,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "i see mercedes-benz using a similar device in the new mercedes-benz",
+      "after": "i see mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz using a similar device in the new mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz"
+    },
+    {
+      "post_id": 3367,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3367,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3367,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3367,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 3367,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4017,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by source text around brand surface",
+      "before": "infiniti bmw 5weighbase: 114.2",
+      "after": "infiniti bmw 5 weighs"
+    },
+    {
+      "post_id": 4017,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "the cts is the new bmw / mercedes-benz competitor to this space",
+      "after": "the cts is the new bmw / mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz competitor to this space"
+    },
+    {
+      "post_id": 4017,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "theme": "Body style and vehicle class",
+        "subattribute": "Market segment",
+        "targets": [
+          "Cadillac",
+          "BMW",
+          "Mercedes-Benz",
+          "Audi",
+          "Lexus",
+          "Infiniti"
+        ],
+        "evidence": "epa class: midsizeepa class: compactthe bmw bmw has a wheelbase 5 inches shorter",
+        "direction": "neutral",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4245,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "what is really interesting is how little mercedes-benz and bmw prices have increased since 1991",
+      "after": "what is really interesting is how little mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz and bmw prices have increased since 1991"
+    },
+    {
+      "post_id": 4245,
+      "group": "relations",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "their fat days came to an end after lexus, infiniti and acura came to the us",
+      "after": "their \" fat days \" came to an end after lexus, infiniti and acura came to the"
+    },
+    {
+      "post_id": 401,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "toyota:toyota's passenger car recorded best-ever october sales",
+      "after": "bmwtoyota:toyota&#146;s passenger car recorded best-ever october sales"
+    },
+    {
+      "post_id": 442,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4607,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4410,
+      "group": "brands",
+      "action": "evidence re-anchored",
+      "reason": "repeated words or elided text restored from source",
+      "before": "get a mercedes-benz c230k sedan with manual",
+      "after": "get a mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz mercedes-benz c230k sedan with manual"
+    },
+    {
+      "post_id": 4410,
+      "group": "attributes",
+      "action": "evidence re-anchored",
+      "reason": "misquote replaced by closest source span",
+      "before": "it had a very european feel to it. something abot the balance and suspension and size and all the rest - it felt better than the base 3 series",
+      "after": "had a very \" european \" feel to it. something abot the balance and suspension and size and all the rest - it felt better than the base 3 series.the"
+    },
+    {
+      "post_id": 4410,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4786,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "evidence not found in post",
+      "before": {
+        "theme": "Ownership cost and efficiency",
+        "subattribute": "Purchase price and value",
+        "targets": [
+          "Pontiac"
+        ],
+        "evidence": "low price, overall a great deal for the money",
+        "direction": "positive",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4786,
+      "group": "attributes",
+      "action": "moved to unresolved",
+      "reason": "theme/subattribute not in taxonomy",
+      "before": {
+        "theme": "Reliability and quality",
+        "subattribute": "Reliability and quality",
+        "targets": [
+          "Cadillac"
+        ],
+        "evidence": "the 2007 cts is also an absolute steal. as the last year of the previous style, it has few reliability issues",
+        "direction": "positive",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 4786,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4786,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4786,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 4786,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 5101,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "endpoint missing from brand references",
+      "before": {
+        "a": "BMW",
+        "b": "Toyota",
+        "evidence": "german manufacturers still do not have the long-term reliability and less problem their japanese counterparts have on average",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 5101,
+      "group": "relations",
+      "action": "moved to unresolved",
+      "reason": "endpoint missing from brand references",
+      "before": {
+        "a": "Mercedes-Benz",
+        "b": "Toyota",
+        "evidence": "german manufacturers still do not have the long-term reliability and less problem their japanese counterparts have on average",
+        "kind": "comparison",
+        "certainty": "supported"
+      },
+      "after": null
+    },
+    {
+      "post_id": 2973,
+      "group": "relations",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    },
+    {
+      "post_id": 2973,
+      "group": "attributes",
+      "action": "downgraded to uncertain",
+      "reason": "endpoint brand is uncertain",
+      "before": "supported",
+      "after": "uncertain"
+    }
+  ],
+  "failures": []
+}

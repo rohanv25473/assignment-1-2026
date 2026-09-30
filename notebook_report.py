@@ -57,7 +57,7 @@ def plot_map(mapping, title):
 def collect_artifacts(root):
     root = Path(root)
     names = ['source_profile.json', 'sample_plan.json', 'discovery.json', 'taxonomy.json',
-             'pilot.json', 'freeze.json', 'extractions.json', 'usage.json',
+             'pilot.json', 'pilot_repairs.json', 'freeze.json', 'extractions.json', 'extract_repairs.json', 'usage.json',
              'development_review.json', 'random_review.json', 'targeted_review.json']
     return {name: read_json(root / 'artifacts' / name) for name in names
             if (root / 'artifacts' / name).exists()}
@@ -395,6 +395,17 @@ class Report:
             table(pd.DataFrame([{'step':'generation not run','model':MODEL,'calls':0,'input_tokens':0,
                                  'output_tokens':0,'total_tokens':0,'estimated_cost_usd':0.0}]))
             note('No notebook API generation usage exists. Chat assistance is separate and is not represented as free API extraction.')
+        pilot = self.bundle.get('pilot.json')
+        if pilot and self.taxonomy and pilot['provenance'] == self.provenance:
+            log = self.bundle.get('pilot_repairs.json') or {}
+            repairs = pd.DataFrame(log.get('repairs', []), columns=['post_id', 'group', 'action', 'reason'])
+            note(f'**Pilot:** {len(pilot["records"])}/{len(self.plan["pilot"])} posts saved'
+                 + (' (complete).' if pilot.get('completed') else ' (incomplete; rerun the pilot stage).')
+                 + f' Automatic evidence repairs: {len(repairs)} across {repairs.post_id.nunique()} posts; '
+                 'evidence is only ever replaced by verbatim source text, and unanchorable events move to unresolved. '
+                 'Inspect these during the development review.')
+            if len(repairs):
+                table(repairs.groupby(['group', 'action', 'reason']).size().reset_index(name='events'))
         if not self.complete:
             return
         all_audits = self.bundle.get('development_review.json', []) + self.bundle.get('random_review.json', [])
@@ -411,8 +422,10 @@ class Report:
             extra = sorted(set(self.target_ids) - set(self.plan['development'] + self.plan['holdout']))
             save_template(self.root / 'artifacts' / 'targeted_review.json', review_template(
                 self.posts, self.records, extra, self.provenance, 'positioning_or_aspiration'))
-        errors = [{'post_id':a['post_id'],'sets':a['sets'],'error_types':a['error_types'],'notes':a['notes']}
-                  for a in all_audits if a.get('human_reviewed')]
+        errors = [{'post_id':a['post_id'],'sets':a['sets'],'reviewer':a['reviewer'],
+                   'review_type':'human' if a.get('human_reviewed') else 'AI',
+                   'error_types':a['error_types'],'notes':a['notes']}
+                  for a in all_audits if is_reviewed(a)]
         table(pd.DataFrame(errors))
 
     def task_g(self):
@@ -479,6 +492,13 @@ class Report:
             ('Total API accounting <= $15', sum(r.get('charged_or_reserved_usd',0) for r in self.bundle.get('usage.json',[])) <= 15),
         ]
         table(pd.DataFrame(statuses, columns=['requirement','complete']))
+        override = (self.bundle.get('freeze.json') or {}).get('gate_override')
+        if override:
+            scores = '; '.join(f"{f} F1 {v['f1']:.2f} (gate {v['gate']:.2f})" for f, v in override['scores'].items())
+            note('**Limitation: development quality gates were overridden by a team decision.** '
+                 f'{scores}. Recorded reason: *{override["reason"]}* Semantic relation, attribute-link and '
+                 'direction results carry this uncertainty; the independent random audit above is the evidence '
+                 'for how much weight they deserve.')
         ready = all(v for _,v in statuses)
         note('**Submission readiness: ' + ('all computational and review checks passed; read the interpretations before submission.**'
                                          if ready else 'NOT READY — outstanding requirements are explicitly shown above.**'))

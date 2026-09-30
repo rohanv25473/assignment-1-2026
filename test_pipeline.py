@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import numpy as np
@@ -190,6 +191,154 @@ class EvidenceAndAuditTests(unittest.TestCase):
         held_out = repair_taxonomy(tax, posts, exclude=[3])[0]  # holdout text never anchors evidence
         self.assertEqual([x['surface'] for x in held_out['unresolved']], ['CTS-V','Audi'])
 
+    def test_extraction_evidence_repair(self):
+        text = ('why buy mercedes-benz mercedes-benz mercedes-benz and bmw when lexus offered more? '
+                'the audi looks bad. the displays must go. i agree the bmw is worse. his wife\'s bmw is fine. '
+                'i would never buy an audi.')
+        posts = pd.DataFrame({'post_id':[7,8], 'clean_text':[text, 'BMW is comfortable.']})
+        tax = copy.deepcopy(self.tax)
+        tax['aliases'] += [dict(surface=s,brand=s,kind='brand',unambiguous=True,post_id=1,evidence='BMW')
+                           for s in ['Audi','Lexus','Mercedes-Benz']]
+        r = record(7,[brand('Mercedes-Benz','why buy mercedes-benz and bmw'),       # collapsed artifact
+                      brand('BMW',"my wife's bmw"),                                  # changed word, short
+                      brand('Audi','the audi looks bad. ... i agree'),               # elision
+                      brand('Lexus','lexus offered more', 'uncertain'),
+                      brand('Saab','saab')],                                         # not in taxonomy
+                   [relation('Mercedes-Benz','Lexus','why buy mercedes-benz and bmw when lexus offered more?'),
+                    relation('BMW','Saab','bmw')],
+                   [attr('comfort',['BMW','Saab'],'bmw is fine'),
+                    dict(attr('comfort',['BMW'],'bmw is fine'), subattribute='invented')],
+                   [desire('Audi','concrete','i would buy an audi')])                # negation lost: no fuzzy
+        fixed, repairs, missing = repair_records([r, record(99)], posts, tax)
+        self.assertEqual(missing, [8])                                              # never invented
+        out = fixed[0]
+        for g in EVENT_GROUPS:
+            for e in out[g]:
+                self.assertIn(e['evidence'], text)
+        self.assertEqual([b['brand'] for b in out['brands']], ['Mercedes-Benz','BMW','Audi','Lexus'])
+        self.assertEqual(out['brands'][1]['evidence'], "wife's bmw")
+        self.assertEqual(out['relations'][0]['certainty'], 'uncertain')              # downgraded, not upgraded
+        self.assertEqual(len(out['relations']), 1)
+        self.assertEqual(out['attributes'][0]['targets'], ['BMW'])
+        self.assertEqual(len(out['attributes']), 1)
+        self.assertEqual(out['aspirations'], [])
+        self.assertEqual(len(out['unresolved']), 4)
+        self.assertEqual(r['brands'][0]['evidence'], 'why buy mercedes-benz and bmw')  # input untouched
+        self.assertTrue(any(x['post_id'] == 99 and x['action'] == 'dropped' for x in repairs))
+        validate_records(fixed, posts[posts.post_id.eq(7)], tax)
+
+    def stage_fixture(self, tmp, n):
+        art = Path(tmp) / 'artifacts'
+        posts = pd.DataFrame({'post_id':list(range(n)), 'author':['u']*n, 'clean_text':['x']*n})
+        plan = {'seed':1, 'holdout':[], 'development':[0], 'pilot':list(range(n))}
+        write_json(art / 'discovery.json', {'candidates':[]})
+        write_json(art / 'taxonomy.json', self.tax)
+        return art, [patch('analysis_pipeline.prepare', return_value=(posts, posts, {})),
+                     patch('analysis_pipeline.sample_plan', return_value=plan),
+                     patch('analysis_pipeline.validate_taxonomy')]
+
+    def test_model_names_map_to_canonical_brands(self):
+        tax = copy.deepcopy(self.tax)
+        tax['aliases'] += [dict(surface='Lexus', brand='Lexus', kind='brand', unambiguous=True, post_id=1, evidence='BMW'),
+                           dict(surface='LS400', brand='Lexus', kind='model', unambiguous=True, post_id=1, evidence='BMW')]
+        resolve = brand_resolver(tax)
+        self.assertEqual(resolve('Lexus LS400'), 'Lexus')
+        self.assertEqual(resolve('BMW 3 Series (compact)'), 'BMW')
+        self.assertIsNone(resolve('Ferrari'))
+        self.assertIsNone(resolve('BMW vs Lexus'))                       # ambiguous: never guessed
+        posts = pd.DataFrame({'post_id':[5], 'clean_text':['the bmw 3 series beats the lexus ls400 on comfort.']})
+        r = record(5, [brand('BMW','bmw 3 series'), brand('Lexus LS400','lexus ls400')],
+                   [relation('BMW 3 Series','Lexus LS400','the bmw 3 series beats the lexus ls400')],
+                   [dict(attr('comfort',['BMW 3 Series','Ferrari'],'comfort'))])
+        fixed, repairs, missing = repair_records([r], posts, tax)
+        out = fixed[0]
+        self.assertEqual([b['brand'] for b in out['brands']], ['BMW','Lexus'])
+        self.assertEqual((out['relations'][0]['a'], out['relations'][0]['b']), ('BMW','Lexus'))
+        self.assertEqual(out['attributes'][0]['targets'], ['BMW'])
+        with tempfile.TemporaryDirectory() as tmp:                    # replay by coverage, any grouping
+            params = message_params('ins', {'posts':[{'post_id':5,'clean_text':'x'}]}, EXTRACTION_SCHEMA, 10)
+            write_json(Path(tmp)/'a.json', {'request':params, 'parsed':{'posts':[r]}})
+            self.assertEqual([ids for ids, _ in cached_extractions(tmp, 'ins', {5, 6})], [[5]])
+            self.assertEqual(list(cached_extractions(tmp, 'other', {5})), [])
+            self.assertEqual(list(cached_extractions(tmp, 'ins', {6})), [])
+
+    def test_freeze_gate_override_is_explicit_and_recorded(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            n = 6
+            art, patches = self.stage_fixture(tmp, n)
+            posts = pd.DataFrame({'post_id': list(range(n)), 'author': ['u'] * n, 'clean_text': ['BMW'] * n})
+            plan = {'seed': 1, 'holdout': [], 'development': list(range(n)), 'pilot': list(range(n))}
+            prov = provenance_hash(self.tax)
+            pilot = [record(i) for i in range(n)]                       # misses every gold brand
+            write_json(art / 'pilot.json', {'provenance': prov, 'records': pilot, 'completed': True})
+            write_json(art / 'development_review.json', [dict(
+                post_id=i, provenance=prov, prediction_hash=digest(pilot[i]), expected=record(i, [brand('BMW')]),
+                reviewer='AI', reviewed_at='t', ai_reviewed=True, human_reviewed=False) for i in range(n)])
+            write_json(art / 'usage.json', [dict(step='C/E/F pilot', status='completed', model=MODEL, tag=prov,
+                                                 charged_or_reserved_usd=.001)])
+            with patch('analysis_pipeline.prepare', return_value=(posts, posts, {})), \
+                 patch('analysis_pipeline.sample_plan', return_value=plan), patch('analysis_pipeline.validate_taxonomy'):
+                with self.assertRaises(ValueError):
+                    run_stage(tmp, 'freeze', source=Path(tmp) / 'x.csv')
+                with self.assertRaises(ValueError):                         # a token reason is not a decision
+                    run_stage(tmp, 'freeze', source=Path(tmp) / 'x.csv', freeze_override='ok')
+                self.assertFalse((art / 'freeze.json').exists())
+                reason = 'Team decision: accept despite low development F1; random audit decides map input.'
+                result = run_stage(tmp, 'freeze', source=Path(tmp) / 'x.csv', freeze_override=reason)
+            self.assertTrue(result['gate_override'])
+            frozen = read_json(art / 'freeze.json')
+            self.assertEqual(frozen['gate_override']['failed_fields'], ['brands'])
+            self.assertEqual(frozen['gate_override']['reason'], reason)
+
+    def test_bad_batch_does_not_stop_stage(self):
+        batches = []
+        def fake_request(self_, step, instructions, payload, schema, max_output=10000, tag=None):
+            ids = [p['post_id'] for p in payload['posts']]
+            batches.append(ids)
+            self.assertIn('"themes"', instructions)                # static taxonomy lives in the prefix
+            self.assertEqual(set(payload), {'posts'})
+            if ids == [4, 5, 6, 7]:
+                raise ValueError('Incomplete/refused response; not negative evidence.')
+            return {'posts': [record(i) for i in ids[1:]]}   # also drops one post per batch
+        with tempfile.TemporaryDirectory() as tmp:
+            art, patches = self.stage_fixture(tmp, 10)
+            write_json(art / 'pilot.json', {'provenance':'old', 'records':[record(0)], 'completed':False})
+            with patches[0], patches[1], patches[2], patch('analysis_pipeline.BATCH_SIZE', 4), patch.object(BudgetAPI, 'request', fake_request):
+                result = run_stage(tmp, 'pilot', source=Path(tmp) / 'x.csv')
+                self.assertEqual(len(batches), 3)
+                self.assertEqual(result['pending'], [0, 4, 5, 6, 7, 8])
+                self.assertFalse(read_json(art / 'pilot.json')['completed'])
+                self.assertTrue((art / 'archive' / 'pilot.old.json').exists())
+                log = read_json(art / 'pilot_repairs.json')
+                self.assertIn('ValueError', {f['error_type'] for f in log['failures']})
+                self.assertFalse((art / 'development_review.json').exists())
+                with patch.object(BudgetAPI, 'request', side_effect=BudgetStop('cap')):
+                    with self.assertRaises(BudgetStop):
+                        run_stage(tmp, 'pilot', source=Path(tmp) / 'x.csv')
+
+    def test_probe_and_failure_streak_stop_spending(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            art, patches = self.stage_fixture(tmp, 400)
+            calls = []
+            def broken(self_, *args, **kwargs):
+                calls.append(1)
+                raise RuntimeError('OpenAI HTTP 400; reservation retained.')
+            with patches[0], patches[1], patches[2], patch('analysis_pipeline.BATCH_SIZE', 4), patch.object(BudgetAPI, 'request', broken):
+                with self.assertRaises(RuntimeError):
+                    run_stage(tmp, 'pilot', source=Path(tmp) / 'x.csv')
+            self.assertEqual(len(calls), 1)                      # probe failed: nothing concurrent sent
+            calls.clear()
+            def flaky(self_, step, instructions, payload, schema, max_output=10000, tag=None):
+                calls.append(1)
+                if len(calls) > 1:
+                    time.sleep(.05)
+                    raise RuntimeError('OpenAI HTTP 500; reservation retained.')
+                return {'posts': [record(p['post_id']) for p in payload['posts']]}
+            with patches[0], patches[1], patches[2], patch('analysis_pipeline.BATCH_SIZE', 4), patch.object(BudgetAPI, 'request', flaky):
+                result = run_stage(tmp, 'pilot', source=Path(tmp) / 'x.csv')
+            self.assertEqual(result['completed'], 4)
+            self.assertLess(len(calls), 60)   # queued work cancelled; only in-flight requests were sent
+
     def test_unknown_targets_and_unsupported_endpoints(self):
         wrong = copy.deepcopy(self.r)
         wrong['attributes'][0]['targets'] = ['Audi']
@@ -199,6 +348,24 @@ class EvidenceAndAuditTests(unittest.TestCase):
         wrong['brands'][0]['certainty'] = 'uncertain'
         with self.assertRaises(ValueError):
             validate_records([wrong],self.posts,self.tax)
+
+    def test_development_reviews_carry_to_new_predictions_but_random_audit_does_not(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'review.json'
+            old = [dict(post_id=1, provenance='old', prediction_hash='h1', expected=self.r, reviewer='R',
+                        reviewed_at='t', ai_reviewed=True, human_reviewed=False, error_types=['x'], notes='n')]
+            write_json(path, old)
+            new = [dict(post_id=1, provenance='new', prediction_hash='h2', expected=None, reviewer='',
+                        reviewed_at='', human_reviewed=False, error_types=[], notes='')]
+            with self.assertRaises(ValueError):                         # random audit: never carried
+                save_template(path, copy.deepcopy(new))
+            save_template(path, copy.deepcopy(new), carry=True)
+            got = read_json(path)[0]
+            self.assertEqual((got['provenance'], got['prediction_hash']), ('new', 'h2'))
+            self.assertEqual(got['expected'], self.r)
+            self.assertTrue(is_reviewed(got) and got['ai_reviewed'] and not got['human_reviewed'])
+            self.assertEqual(got['carried_from'], 'old')
+            self.assertTrue(got['notes'].startswith('[Carried from prediction version old'))
 
     def test_human_provenance_and_untouched_samples(self):
         a = dict(post_id=1,reviewer='',reviewed_at='',human_reviewed=False,expected=None,
@@ -220,9 +387,9 @@ class EvidenceAndAuditTests(unittest.TestCase):
 
 class BudgetTests(unittest.TestCase):
     def response(self, body):
-        return {'id':'test_only','status':'completed','usage':{'input_tokens':100,'output_tokens':10,
-                'total_tokens':110,'input_tokens_details':{'cached_tokens':0}},
-                'output':[{'content':[{'type':'output_text','text':'{"answer":"ok"}'}]}]}
+        return {'id':'test_only','stop_reason':'end_turn','usage':{'input_tokens':100,'output_tokens':10,
+                'cache_read_input_tokens':0,'cache_creation_input_tokens':0},
+                'content':[{'type':'text','text':'{"answer":"ok"}'}]}
 
     def test_cache_avoids_calls_and_persistent_cost(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -238,7 +405,112 @@ class BudgetTests(unittest.TestCase):
             self.assertEqual(len(calls),1)
             self.assertEqual(len(read_json(Path(tmp)/'usage.json')),1)
             cost=read_json(Path(tmp)/'usage.json')[0]['charged_or_reserved_usd']
-            self.assertAlmostEqual(cost,.000015)
+            self.assertAlmostEqual(cost,.00015)   # 100 x $1 + 10 x $5 per million
+
+    def test_concurrent_calls_share_one_consistent_ledger(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            api = BudgetAPI(tmp, key='test', transport=lambda b: (time.sleep(.02), self.response(b))[1])
+            with ThreadPoolExecutor(12) as pool:
+                list(pool.map(lambda i: api.request('test', 'test', {'i': i}, obj(answer=S), tag='t'), range(40)))
+            ledger = read_json(Path(tmp) / 'usage.json')
+            self.assertEqual(len(ledger), 40)
+            self.assertEqual({r['status'] for r in ledger}, {'completed'})
+            self.assertEqual({r['tag'] for r in ledger}, {'t'})
+            self.assertFalse((Path(tmp) / 'budget.lock').exists())
+
+    def test_usage_cost_stacks_cache_and_batch_prices(self):
+        usage = {'input_tokens': 1000, 'output_tokens': 2000, 'cache_read_input_tokens': 5000,
+                 'cache_creation_input_tokens': 3000,
+                 'cache_creation': {'ephemeral_1h_input_tokens': 3000, 'ephemeral_5m_input_tokens': 0}}
+        realtime = (1000 * 1 + 5000 * .1 + 3000 * 2 + 2000 * 5) / 1e6
+        self.assertAlmostEqual(usage_cost(usage), realtime)
+        self.assertAlmostEqual(usage_cost(usage, batch=True), realtime / 2)
+
+    def fake_batch_api(self, tmp, errored=()):
+        created = {}
+        def message(ids):
+            text = json.dumps({'posts': [record(i) for i in ids]})
+            return {'id': 'm', 'stop_reason': 'end_turn', 'content': [{'type': 'text', 'text': text}],
+                    'usage': {'input_tokens': 100, 'output_tokens': 10,
+                              'cache_read_input_tokens': 0, 'cache_creation_input_tokens': 0}}
+        def results(bid):
+            for r in created[bid]:
+                ids = batch_ids(r['custom_id'])
+                if ids[0] in errored:
+                    yield SimpleNamespace(custom_id=r['custom_id'], result=SimpleNamespace(type='errored'))
+                else:
+                    m = message(ids)
+                    yield SimpleNamespace(custom_id=r['custom_id'], result=SimpleNamespace(
+                        type='succeeded', message=SimpleNamespace(model_dump=lambda m=m: m)))
+        def create(requests):
+            bid = f'batch{len(created)}'
+            created[bid] = requests
+            return SimpleNamespace(id=bid)
+        api = BudgetAPI(tmp, key='test')
+        api._client = SimpleNamespace(messages=SimpleNamespace(batches=SimpleNamespace(
+            create=create, retrieve=lambda bid: SimpleNamespace(processing_status='ended'), results=results)))
+        return api, created
+
+    def test_rolling_batches_respect_worst_case_budget_and_resume(self):
+        schema = EXTRACTION_SCHEMA
+        make = lambda ids: message_params('prompt', {'posts': ids}, schema, 4000)
+        groups = [[i] for i in range(7)]
+        with tempfile.TemporaryDirectory() as tmp, patch('analysis_pipeline.POLL_SECONDS', 0),              patch('analysis_pipeline.BATCH_CHUNK', 2):
+            api, created = self.fake_batch_api(tmp, errored={5})
+            worst = api.upper_cost(make([0]), batch=True)
+            # Room for exactly one 2-request chunk at worst case: chunks must wait for settlement.
+            write_json(Path(tmp) / 'usage.json', [{'charged_or_reserved_usd': BUDGET - BUFFER - 2.5 * worst}])
+            state = Path(tmp) / 'state.json'
+            write_json(state, {'tag': 't', 'open': []})
+            handled, failed = [], []
+            handle = lambda ids, parsed, exc: (failed if exc else handled).append(ids[0])
+            stop = run_message_batches(api, state, 'test', groups, make, schema, 't', handle, lambda force=False: None)
+            self.assertIsNone(stop)
+            self.assertEqual(sorted(handled), [0, 1, 2, 3, 4, 6])
+            self.assertEqual(failed, [5])                               # errored result: pending, unbilled
+            self.assertEqual(len(created), 4)
+            self.assertEqual(read_json(state)['open'], [])
+            ledger = read_json(Path(tmp) / 'usage.json')[1:]
+            self.assertEqual({r['status'] for r in ledger}, {'completed'})
+            actual = usage_cost({'input_tokens': 100, 'output_tokens': 10}, batch=True)
+            self.assertAlmostEqual(sum(r['charged_or_reserved_usd'] for r in ledger), 6 * actual)
+            # Resume after a disconnect: an open batch is collected, never resubmitted.
+            created['old'] = [{'custom_id': batch_custom_id([9]), 'params': make([9])}]
+            row = api.reserve('test', worst, 't')
+            write_json(state, {'tag': 't', 'open': [{'batch_id': 'old', 'call_id': row['call_id'],
+                                                     'custom_ids': [batch_custom_id([9])]}]})
+            handled.clear()
+            run_message_batches(api, state, 'test', [[9], [0]], make, schema, 't', handle, lambda force=False: None)
+            self.assertEqual(sorted(handled), [0, 9])                   # [0] replayed from cache for free
+            self.assertEqual(len(created), 5)                          # nothing new submitted
+            with self.assertRaises(ValueError):                        # open batches of another version
+                write_json(state, {'tag': 'old', 'open': [{'batch_id': 'x', 'call_id': 'y', 'custom_ids': []}]})
+                run_message_batches(api, state, 'test', [], make, schema, 't', handle, lambda force=False: None)
+
+    def test_estimate_reservations_submit_everything_in_one_round(self):
+        schema = EXTRACTION_SCHEMA
+        make = lambda ids: message_params('prompt', {'posts': ids}, schema, 4000)
+        with tempfile.TemporaryDirectory() as tmp, patch('analysis_pipeline.POLL_SECONDS', 0), \
+             patch('analysis_pipeline.BATCH_CHUNK', 2):
+            api, created = self.fake_batch_api(tmp)
+            worst = api.upper_cost(make([0]), batch=True)
+            estimate = worst / 10
+            old = api.reserve('test', worst * 4, 't')                   # an open batch reserved at worst case
+            api._settle(old['call_id'], status='submitted')
+            created['old'] = [{'custom_id': batch_custom_id([9]), 'params': make([9])}]
+            state = Path(tmp) / 'state.json'
+            write_json(state, {'tag': 't', 'open': [{'batch_id': 'old', 'call_id': old['call_id'],
+                                                     'custom_ids': [batch_custom_id([9])]}]})
+            # Room for the 7 new requests exists only after the open batch is re-reserved at the estimate.
+            write_json(Path(tmp) / 'usage.json', read_json(Path(tmp) / 'usage.json') +
+                       [{'charged_or_reserved_usd': BUDGET - BUFFER - worst * 4 - estimate * 8}])
+            order = []
+            handle = lambda ids, parsed, exc: order.append(ids[0])
+            run_message_batches(api, state, 'test', [[i] for i in range(7)], make, schema, 't', handle,
+                                lambda force=False: None, estimate=estimate)
+            self.assertEqual(sorted(order), [0, 1, 2, 3, 4, 5, 6, 9])
+            ledger = read_json(Path(tmp) / 'usage.json')
+            self.assertEqual({r.get('status') for r in ledger if r.get('call_id')}, {'completed'})
 
     def test_guard_stops_before_transport(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -263,7 +535,7 @@ class BudgetTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             def incomplete(body):
                 r=self.response(body)
-                r['status']='incomplete'
+                r['stop_reason']='max_tokens'
                 return r
             with self.assertRaises(ValueError):
                 BudgetAPI(tmp,key='test',transport=incomplete).request('test','test',{},obj(answer=S))

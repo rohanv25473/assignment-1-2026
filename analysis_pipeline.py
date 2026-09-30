@@ -10,11 +10,15 @@ import itertools
 import json
 import os
 from pathlib import Path
+import random
 import re
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import uuid
 from collections import Counter
 from contextlib import contextmanager
+from difflib import SequenceMatcher
 
 import numpy as np
 import pandas as pd
@@ -27,17 +31,44 @@ from sklearn.manifold import MDS
 from sklearn.metrics import silhouette_score, adjusted_rand_score
 import jsonschema
 
-VERSION = '1.0.0'
+# 1.1.0: deterministic, logged evidence repair of extraction responses; batch failures no longer abort a stage.
+# 2.0.0: team switched generation from OpenAI GPT-6 Luna to Claude Haiku 4.5 (Anthropic Messages API):
+#        concurrent real-time pilot, rolling Message Batches (50% price) for full extraction.
+# 2.1.0: model/alias endpoint names mapped to canonical brands; cached responses replayed by post coverage.
+# 2.2.0: prompt revised from development-review errors (class-wide targets, quoted text, per-brand
+#        direction, advice/liking/ownership not desire); development reviews carry across versions.
+# 2.3.0: 2.2.0 cut recall (relations .52, links .60): cautious rules softened, exhaustiveness and a
+#        re-read check added, 2 posts per request.
+VERSION = '2.3.0'
 SEED = 20260928
 GM_CHILDREN = {'Chevrolet', 'Buick', 'GMC', 'Cadillac'}
 SOURCE_HASH = '1af81f6b88bec9ae0bf1cf668eaefdee86cc69b5ad27d3d74a797ab4a7991bad'
-MODEL = 'gpt-6-luna'
-# Standard short-context pricing verified against official model page 2026-09-29.
-# Reserve at the cache-write rate for ALL input tokens; this overestimates ordinary input.
-PRICES = {'input': .10, 'cached': .01, 'cache_write': .125, 'output': .50,
-          'date': '2026-09-29', 'source': 'https://developers.openai.com/api/docs/models/gpt-6-luna'}
+MODEL = 'claude-haiku-4-5'
+# USD per million tokens, verified against the official pricing page 2026-09-29. Cache multipliers
+# and the Batch API discount stack. Earlier ledger rows keep the prices they were charged at.
+PRICES = {'input': 1.00, 'cache_write_5m': 1.25, 'cache_write_1h': 2.00, 'cached': .10, 'output': 5.00,
+          'batch_discount': .5, 'date': '2026-09-29',
+          'source': 'https://platform.claude.com/docs/en/about-claude/pricing'}
 BUDGET = 15.0
 BUFFER = .50
+CACHE_TTL = '1h'         # batches run for minutes to hours; keep the shared taxonomy prefix cached across them
+MAX_OUTPUT = 3000        # per 2-post request (~2x the largest per-post pilot output); truncation fails visibly
+BATCH_SIZE = 2           # posts per request (4 per request under-extracted in the development review)
+WORKERS = 16             # concurrent real-time requests (pilot)
+RATE_LIMIT_RETRIES = 6   # SDK backoff retries for 429/5xx under one reservation
+FAILURE_STREAK_STOP = 5  # consecutive failed requests that stop a stage (systematic error, not bad luck)
+EXTRACT_MODE = 'batch'   # full extraction via Message Batches; 'realtime' is ~2x the price
+BATCH_CHUNK = 100        # requests per Message Batch; chunks roll as worst-case reservations settle
+POLL_SECONDS = 30
+RESERVE_AT_ESTIMATE = True  # batch reservations at the frozen pilot estimate (+50%) rather than worst case
+LEDGER_LOCK = threading.Lock()
+# Anthropic SDK errors for requests the API refused outright (not billed; the reservation is released).
+API_REJECTIONS = {'BadRequestError', 'AuthenticationError', 'PermissionDeniedError', 'NotFoundError',
+                  'ConflictError', 'UnprocessableEntityError', 'RequestTooLargeError', 'RateLimitError',
+                  'OverloadedError', 'ServiceUnavailableError'}
+# Account/service errors that say nothing about the posts in a request.
+API_ERRORS = API_REJECTIONS | {'APIStatusError', 'InternalServerError', 'DeadlineExceededError',
+                               'APIConnectionError', 'APITimeoutError', 'RuntimeError'}
 GATES = {'brand_f1': .85, 'relation_f1': .75, 'link_f1': .75,
          'aspiration_f1': .75, 'min_relation_gold': 10, 'observed_pairs': 15,
          'cluster_ari': .8, 'min_pair_support': 5}
@@ -220,15 +251,35 @@ Do not treat corruption such as inserted kia hyundai or toyota d as genuine with
 Relations: comparison, shared evaluation (positive OR negative), or purchase alternatives. Bare lists
 and unrelated co-mentions do not qualify. Both endpoints must also be in brands. GM alone creates no
 child relations. Do not expand GM yourself: downstream code implements the explicit task-specific rule.
+Name every brand, relation endpoint, target and aspiration with the canonical brand exactly as written
+in the taxonomy (for example "Cadillac", never "Cadillac CTS"; "Lexus", never "IS350").
+Be exhaustive: posts are long and dense, and every qualifying statement is needed. Record EVERY brand
+pair the author compares, ranks, contrasts or likens ("X vs. Y", "better than", "similar to", "feels
+like", spec tables of named competitors, head-to-head verdicts) or presents as purchase alternatives, and
+EVERY evaluative statement about a brand's vehicles (one attribute record per brand and feature). Before
+finishing each post, re-read it once and add anything missed.
+Quoted text: words the author quotes from another poster or a publication (typically in quotation marks
+at the start of a reply) are that source's claims, not the author's. Everything the author writes in
+response, including disagreement and counter-claims, IS the author's view and must be recorded.
 Attributes: vehicle features/evaluative dimensions, preserving theme, subattribute, exact evidence,
-clear targets (plural targets allowed), and direction only when supported. Leave unresolved targets
-empty. Corporate finance is not a vehicle attribute. Include each target in brands. Opposite descriptions
-can be separate evidence records; counts will deduplicate. Never infer product strength from frequency.
+clear targets (plural targets allowed), and direction only when supported. Targets are the brands whose
+vehicles the feature describes. Leave targets empty only when the claim is about a whole segment or cars
+in general with no brand as its subject. Corporate finance and brand image are not vehicle attributes. Include each target in brands. Direction is per brand: when a comparison favours one brand
+over another, write one attribute record per brand with its own direction (the winner positive, the loser
+negative); use mixed only when the author both praises and criticises the SAME brand's feature.
+Opposite descriptions can be separate evidence records; counts will deduplicate. Never infer product
+strength from frequency.
 Aspiration: the AUTHOR personally wants to BUY OR OWN. Concrete acquisition plans and conditional/dream
-ownership qualify separately. Praise, current ownership, advice to others, generic hypotheticals and
-quoted-only wishes do not. Explicit negated desire is rejection. GM-only desire remains GM, never the
-four children. Include the target in brands. Record uncertain cases; do not force labels.
+ownership qualify separately. These are NOT aspiration (omit them or mark nonqualifying): praise or
+liking a brand, current or past ownership, a car already bought, test drives, advice or recommendations
+to another poster, "if I were you" suggestions, generic hypotheticals and quoted-only wishes. Explicit
+negated desire is rejection. GM-only desire remains GM, never the four children. Include the target in
+brands. Record uncertain cases; do not force labels.
 Keep outputs concise; one evidence span per distinct supported assertion is enough.'''
+
+
+class BudgetStop(RuntimeError):
+    """Stops a whole stage: spending cap reached or no key. Other request failures skip one batch."""
 
 
 @contextmanager
@@ -245,82 +296,272 @@ def exclusive(path):
         path.unlink(missing_ok=True)
 
 
+def message_params(instructions, payload, schema, max_output):
+    """One Messages API request. The instructions (with the taxonomy for extraction) form a stable,
+    cache-marked system prefix; only the user message varies between requests."""
+    return {'model': MODEL, 'max_tokens': max_output,
+            'system': [{'type': 'text', 'text': instructions,
+                        'cache_control': {'type': 'ephemeral', 'ttl': CACHE_TTL}}],
+            'messages': [{'role': 'user', 'content': canonical(payload)}],
+            'output_config': {'format': {'type': 'json_schema', 'schema': schema}}}
+
+
+def usage_cost(usage, batch=False):
+    """USD for one response from its reported usage (input_tokens excludes cache reads and writes)."""
+    writes = int(usage.get('cache_creation_input_tokens') or 0)
+    split = usage.get('cache_creation') or {}
+    w1h, w5m = split.get('ephemeral_1h_input_tokens'), split.get('ephemeral_5m_input_tokens')
+    if w1h is None and w5m is None:
+        w1h, w5m = (writes, 0) if CACHE_TTL == '1h' else (0, writes)
+    cost = (int(usage.get('input_tokens') or 0) * PRICES['input']
+            + int(usage.get('cache_read_input_tokens') or 0) * PRICES['cached']
+            + int(w5m or 0) * PRICES['cache_write_5m'] + int(w1h or 0) * PRICES['cache_write_1h']
+            + int(usage.get('output_tokens') or 0) * PRICES['output']) / 1e6
+    return cost * (PRICES['batch_discount'] if batch else 1)
+
+
+def parse_message(message, schema):
+    """Structured JSON from a Messages API response dict. Truncation and refusals are failures,
+    never empty (negative) evidence."""
+    if message.get('stop_reason') != 'end_turn':
+        raise ValueError(f'Incomplete/refused response (stop_reason={message.get("stop_reason")}); '
+                         'not negative evidence.')
+    text = ''.join(b.get('text', '') for b in message.get('content', []) if b.get('type') == 'text')
+    parsed = json.loads(text)
+    jsonschema.validate(parsed, schema)
+    return parsed
+
+
 class BudgetAPI:
     def __init__(self, root, key=None, transport=None):
         self.root = Path(root)
-        self.key = key or os.environ.get('OPENAI_API_KEY')
-        self.transport = transport
+        self.key = key or os.environ.get('ANTHROPIC_API_KEY')
+        self.transport = transport  # tests: params -> Messages API response dict
+        self._client = None
+        self._prefix = {}
         self.root.mkdir(parents=True, exist_ok=True)
 
-    def request(self, step, instructions, payload, schema, max_output=10000):
-        import requests
-        body = {'model': MODEL, 'instructions': instructions, 'input': canonical(payload),
-                'max_output_tokens': max_output, 'store': False,
-                'text': {'format': {'type': 'json_schema', 'name': 'assignment_extraction',
-                                    'strict': True, 'schema': schema}}}
-        key = digest(body)
-        cache = self.root / 'api_cache' / (key + '.json')
-        cached = read_json(cache)
+    @property
+    def client(self):
+        if self._client is None:
+            import anthropic
+            # The SDK retries 429/5xx/connection errors with backoff; a retried request stays one reservation.
+            self._client = anthropic.Anthropic(api_key=self.key, max_retries=RATE_LIMIT_RETRIES, timeout=600)
+        return self._client
+
+    def _ledger(self, update):
+        """Read-modify-write the durable ledger under both the in-process and filesystem locks.
+        Locks are held only for bookkeeping, never while a request is in flight, so calls can overlap."""
+        with LEDGER_LOCK, exclusive(self.root / 'budget.lock'):
+            path = self.root / 'usage.json'
+            ledger = read_json(path, [])
+            result = update(ledger)
+            write_json(path, ledger)
+            return result
+
+    def _settle(self, call_id, **fields):
+        def update(ledger):
+            next(r for r in ledger if r.get('call_id') == call_id).update(fields)
+        self._ledger(update)
+
+    def reserve(self, step, amount, tag=None, **extra):
+        """Persist a worst-case reservation BEFORE sending. Every in-flight request or batch is already
+        reserved here, so concurrent work cannot jointly pass the cap."""
+        if not self.key:
+            raise BudgetStop('ANTHROPIC_API_KEY missing. Set it securely or use a Colab secret; never put it in source.')
+        row = {'call_id': str(uuid.uuid4()), 'step': step, 'model': MODEL, 'tag': tag,
+               'status': 'reserved', 'charged_or_reserved_usd': amount, 'reserved_usd': amount,
+               'input_tokens': None, 'output_tokens': None, 'total_tokens': None,
+               'prices': PRICES, 'time': time.time(), **extra}
+
+        def add(ledger):
+            if sum(r.get('charged_or_reserved_usd', 0) for r in ledger) + amount > BUDGET - BUFFER:
+                raise BudgetStop('Budget guard stopped before $15; corpus coverage is incomplete.')
+            ledger.append(row)
+        self._ledger(add)
+        return row
+
+    def cache_path(self, params):
+        return self.root / 'api_cache' / (digest(params) + '.json')
+
+    def cached(self, params, schema):
+        cached = read_json(self.cache_path(params))
         if cached:
             jsonschema.validate(cached['parsed'], schema)
             return cached['parsed']
-        if not self.key:
-            raise RuntimeError('OPENAI_API_KEY missing. Set it securely or use a Colab secret; never put it in source.')
-        # UTF-8 byte length is a deliberately conservative token upper estimate, plus protocol buffer.
-        upper_input = len(canonical(body).encode()) + 4096
-        if upper_input > 200000:
-            raise ValueError('Request too large for the conservative short-context price guard; split it.')
-        reserve = (upper_input * PRICES['cache_write'] + max_output * PRICES['output']) / 1e6
-        with exclusive(self.root / 'budget.lock'):
-            ledger_path = self.root / 'usage.json'
-            ledger = read_json(ledger_path, [])
-            spent = sum(r.get('charged_or_reserved_usd', 0) for r in ledger)
-            if spent + reserve > BUDGET - BUFFER:
-                raise RuntimeError('Budget guard stopped before $15; corpus coverage is incomplete.')
-            row = {'call_id': str(uuid.uuid4()), 'step': step, 'model': MODEL, 'request_hash': key,
-                   'status': 'reserved', 'charged_or_reserved_usd': reserve, 'reserved_usd': reserve,
-                   'input_tokens': None, 'output_tokens': None, 'total_tokens': None,
-                   'prices': PRICES, 'time': time.time()}
-            ledger.append(row)
-            write_json(ledger_path, ledger)  # Persist BEFORE sending, including timeouts and crashes.
+        return None
+
+    def prefix_tokens(self, params):
+        """Exact token count of the static prefix (system + output schema) from the free counting
+        endpoint, once per prefix; UTF-8 bytes are the conservative fallback."""
+        key = digest([params['system'], params['output_config']])
+        if key not in self._prefix:
+            fallback = len(canonical([params['system'], params['output_config']]).encode()) + 1024
+            count = fallback
+            if not self.transport and self.key:
+                ask = dict(model=MODEL, system=params['system'], messages=[{'role': 'user', 'content': '{}'}])
+                try:
+                    count = self.client.messages.count_tokens(**ask, output_config=params['output_config']).input_tokens + 256
+                except Exception:
+                    try:  # exact system count; schema bounded by its bytes
+                        count = (self.client.messages.count_tokens(**ask).input_tokens + 256
+                                 + len(canonical(params['output_config']).encode()))
+                    except Exception:
+                        count = fallback
+            self._prefix[key] = count
+        return self._prefix[key]
+
+    def upper_cost(self, params, batch=False):
+        # Worst case: the whole input written to the 1-hour cache (the dearest input rate) plus a
+        # full max_tokens output. Variable content bytes bound its token count from above.
+        tokens = self.prefix_tokens(params) + len(canonical(params['messages']).encode())
+        cost = (tokens * max(PRICES['cache_write_1h'], PRICES['cache_write_5m'], PRICES['input'])
+                + params['max_tokens'] * PRICES['output']) / 1e6
+        return cost * (PRICES['batch_discount'] if batch else 1)
+
+    def request(self, step, instructions, payload, schema, max_output=MAX_OUTPUT, tag=None):
+        params = message_params(instructions, payload, schema, max_output)
+        cached = self.cached(params, schema)
+        if cached is not None:
+            return cached
+        row = self.reserve(step, self.upper_cost(params), tag, request_hash=digest(params), mode='realtime')
+        try:
+            message = self.transport(params) if self.transport else self.client.messages.create(**params).model_dump()
+            usage = message.get('usage')
+            if usage is None:
+                raise ValueError('Response has no usage; conservative reservation retained.')
+            self._settle(row['call_id'], status='received', response_id=message.get('id'),
+                         charged_or_reserved_usd=usage_cost(usage), **usage_fields(usage))
+            parsed = parse_message(message, schema)
+            write_json(self.cache_path(params), {'request': params, 'response': message, 'parsed': parsed})
+            self._settle(row['call_id'], status='completed')
+            return parsed
+        except Exception as exc:
+            # An HTTP error response (401, 400, exhausted 429, 5xx) means the API rejected the request
+            # without generating output, which is not billed. Anything else (timeout, dropped connection)
+            # might have been processed, so its reservation is retained.
+            rejected = type(exc).__name__ in API_REJECTIONS
+            self._settle(row['call_id'], status='rejected' if rejected else 'failed', error_type=type(exc).__name__,
+                         **({'charged_or_reserved_usd': 0.0} if rejected else {}))
+            raise
+
+
+def usage_fields(usage):
+    inp, out = int(usage.get('input_tokens') or 0), int(usage.get('output_tokens') or 0)
+    reads = int(usage.get('cache_read_input_tokens') or 0)
+    writes = int(usage.get('cache_creation_input_tokens') or 0)
+    return {'input_tokens': inp + reads + writes, 'output_tokens': out, 'total_tokens': inp + reads + writes + out,
+            'cached_input_tokens': reads, 'cache_write_tokens': writes}
+
+
+def batch_custom_id(ids):
+    return 'posts-' + '-'.join(map(str, ids))
+
+
+def batch_ids(custom_id):
+    return [int(i) for i in custom_id.split('-')[1:]]
+
+
+def run_message_batches(api, state_path, step, groups, make_params, schema, tag, handle, checkpoint, estimate=None):
+    """Process post groups through rolling Message Batches (50% price).
+
+    Each chunk is reserved at worst case before submission and settled from actual usage when it
+    ends, which frees budget for the next chunk. Open batch IDs persist in state_path, so a rerun
+    after a runtime disconnect resumes polling instead of resubmitting (and paying twice).
+    handle(ids, parsed, exc) merges one group; checkpoint() saves progress."""
+    state = read_json(state_path, {})
+    if state.get('tag') != tag:
+        if state.get('open'):
+            raise ValueError(f'{state_path.name} lists open batches from another extraction version; '
+                             'collect or cancel them before switching versions.')
+        state = {'tag': tag, 'open': []}
+    if estimate:
+        # Estimate-based reservations (deadline mode): re-reserve open batches at the frozen per-request
+        # estimate, which already carries the pilot's 50% margin, instead of their worst case.
+        def rereserve(ledger):
+            for entry in state['open']:
+                row = next((r for r in ledger if r.get('call_id') == entry['call_id']), None)
+                if row and row.get('status') == 'submitted':
+                    row['charged_or_reserved_usd'] = min(row['charged_or_reserved_usd'],
+                                                         estimate * len(entry['custom_ids']))
+                    row['reservation'] = 'estimate'
+        api._ledger(rereserve)
+    busy = {i for b in state['open'] for cid in b['custom_ids'] for i in batch_ids(cid)}
+    queue = []
+    for ids in groups:
+        if set(ids) & busy:
+            continue
+        parsed = api.cached(make_params(ids), schema)
+        if parsed is not None:
+            handle(ids, parsed, None)  # already paid for; replay free
+        else:
+            queue.append(ids)
+    checkpoint(force=True)
+    stop = None
+    while (queue and stop is None) or state['open']:
+        while queue and stop is None:
+            chunk = queue[:BATCH_CHUNK]
+            amount = (estimate * len(chunk) if estimate else
+                      sum(api.upper_cost(make_params(ids), batch=True) for ids in chunk))
             try:
-                if self.transport:
-                    response = self.transport(body)
-                else:
-                    r = requests.post('https://api.openai.com/v1/responses',
-                                      headers={'Authorization': 'Bearer ' + self.key}, json=body, timeout=180)
-                    # Do not print HTTP response bodies; errors can contain request material.
-                    if r.status_code != 200:
-                        raise RuntimeError('OpenAI HTTP ' + str(r.status_code) + '; reservation retained.')
-                    response = r.json()
-                usage = response.get('usage')
-                if usage is None:
-                    raise ValueError('Response has no usage; conservative reservation retained.')
-                inp, out = int(usage['input_tokens']), int(usage['output_tokens'])
-                details = usage.get('input_tokens_details', {})
-                cached_n = int(details.get('cached_tokens', 0))
-                writes = int(details.get('cache_write_tokens', 0))
-                cost = ((inp - cached_n - writes) * PRICES['input'] + cached_n * PRICES['cached']
-                        + writes * PRICES['cache_write'] + out * PRICES['output']) / 1e6
-                row.update(input_tokens=inp, output_tokens=out, total_tokens=int(usage['total_tokens']),
-                           cached_input_tokens=cached_n, cache_write_tokens=writes,
-                           charged_or_reserved_usd=cost, response_id=response.get('id'), status='received')
-                write_json(ledger_path, ledger)
-                if response.get('status') != 'completed':
-                    raise ValueError('Incomplete/refused response; not negative evidence.')
-                texts = [c['text'] for item in response.get('output', [])
-                         for c in item.get('content', []) if c.get('type') == 'output_text']
-                parsed = json.loads(''.join(texts))
-                jsonschema.validate(parsed, schema)
-                write_json(cache, {'request': body, 'response': response, 'parsed': parsed})
-                row['status'] = 'completed'
-                write_json(ledger_path, ledger)
-                return parsed
+                row = api.reserve(step, amount, tag, mode='batch', requests=len(chunk))
+            except BudgetStop:
+                if not state['open']:
+                    raise
+                break  # wait for an open batch to settle and release its reservation
+            try:
+                requests = [{'custom_id': batch_custom_id(ids), 'params': make_params(ids)} for ids in chunk]
+                batch = api.client.messages.batches.create(requests=requests)
             except Exception as exc:
-                row['status'] = 'failed'
-                row['error_type'] = type(exc).__name__
-                write_json(ledger_path, ledger)
+                import anthropic
+                # A server error response means no batch exists; anything else (timeout) might have created one.
+                rejected = isinstance(exc, anthropic.APIStatusError)
+                api._settle(row['call_id'], status='failed', error_type=type(exc).__name__,
+                            **({'charged_or_reserved_usd': 0.0} if rejected else {}))
                 raise
+            api._settle(row['call_id'], status='submitted', batch_id=batch.id)
+            state['open'].append({'batch_id': batch.id, 'call_id': row['call_id'],
+                                  'custom_ids': [batch_custom_id(ids) for ids in chunk]})
+            write_json(state_path, state)
+            queue = queue[BATCH_CHUNK:]
+            print(f'{step}: submitted batch {batch.id} ({len(chunk)} requests); {len(queue)} requests queued',
+                  flush=True)
+        if not state['open']:
+            break
+        time.sleep(POLL_SECONDS)
+        for entry in list(state['open']):
+            info = api.client.messages.batches.retrieve(entry['batch_id'])
+            if info.processing_status != 'ended':
+                continue
+            cost, succeeded, totals = 0.0, 0, Counter()
+            for result in api.client.messages.batches.results(entry['batch_id']):
+                ids = batch_ids(result.custom_id)
+                if result.result.type != 'succeeded':  # errored/canceled/expired requests are not billed
+                    handle(ids, None, RuntimeError(f'Batch request {result.result.type}; posts stay pending.'))
+                    continue
+                message = result.result.message.model_dump()
+                cost += usage_cost(message['usage'], batch=True)
+                totals.update(usage_fields(message['usage']))
+                try:
+                    parsed = parse_message(message, schema)
+                except Exception as exc:
+                    handle(ids, None, exc)
+                    continue
+                succeeded += 1
+                write_json(api.cache_path(make_params(ids)),
+                           {'request': make_params(ids), 'response': message, 'parsed': parsed})
+                handle(ids, parsed, None)
+            api._settle(entry['call_id'], status='completed', charged_or_reserved_usd=cost, **totals)
+            state['open'].remove(entry)
+            write_json(state_path, state)
+            checkpoint(force=True)
+            print(f'{step}: batch {entry["batch_id"]} ended; {succeeded}/{len(entry["custom_ids"])} requests '
+                  f'succeeded; ${cost:.4f}', flush=True)
+            if succeeded == 0 and stop is None:
+                stop = RuntimeError(f'Every request in batch {entry["batch_id"]} failed; no new batches were submitted.')
+    if stop:
+        print(f'{step} STOPPED: {stop}', flush=True)
+    return stop
 
 
 def find_span(quote, text):
@@ -374,6 +615,201 @@ def repair_taxonomy(tax, posts, exclude=()):
             repairs.append({**change, 'to_post': None, 'to_evidence': None, 'reason': 'moved to unresolved'})
     tax['aliases'] = kept
     return tax, repairs
+
+
+ELLIPSIS = re.compile(r'\s*(?:\.{3,}|…)\s*')
+NEGATIONS = {'not', 'no', 'never', 'nor', 'without', 'hardly', "don't", "didn't", "won't", "wouldn't",
+             "can't", "isn't", "wasn't", "doesn't", "couldn't", "shouldn't", 'nothing', 'none'}
+EVENT_GROUPS = ['brands', 'relations', 'attributes', 'aspirations']
+
+
+def event_targets(group, event):
+    return ([event['brand']] if group in ['brands', 'aspirations'] else
+            [event['a'], event['b']] if group == 'relations' else event['targets'])
+
+
+def fuzzy_span(quote, text, threshold=.85, min_words=4, must_contain=None):
+    """Closest verbatim word window for a lightly misquoted span (one changed word, detached
+    possessive). Short quotes and quotes whose negation words differ are never fuzzily anchored.
+    must_contain restricts windows to those containing one of these word-bounded surfaces."""
+    words = quote.lower().split()
+    if len(words) < min_words:
+        return None
+    collapsed = []  # repeated corpus artifacts ('mercedes-benz' x8) count as one word, keep full extent
+    for m in re.finditer(r'\S+', text):
+        w = m.group(0).lower()
+        if collapsed and collapsed[-1][0] == w:
+            collapsed[-1] = (w, collapsed[-1][1], m.end())
+        else:
+            collapsed.append((w, m.start(), m.end()))
+    target, best, where = ' '.join(words), threshold, None
+    negations = NEGATIONS & set(words)
+    for n in {len(words) - 1, len(words), len(words) + 1}:
+        for i in range(len(collapsed) - n + 1):
+            window = [w for w, _, _ in collapsed[i:i + n]]
+            matcher = SequenceMatcher(None, target, ' '.join(window), autojunk=False)
+            if matcher.quick_ratio() < best:
+                continue
+            ratio = matcher.ratio()
+            if ratio < best or NEGATIONS & set(window) != negations:
+                continue
+            span = (collapsed[i][1], collapsed[i + n - 1][2])
+            if must_contain and not any(match_phrase(text[span[0]:span[1]], s) for s in must_contain):
+                continue
+            if ratio > best or where is None:
+                best, where = ratio, span
+    return text[where[0]:where[1]] if where else None
+
+
+def anchor_evidence(quote, text, fuzzy=True):
+    """Return (verbatim source span, repair reason) for a model quote, or (None, None).
+    The result is always copied from the source; the model's label is never changed here."""
+    if quote and quote in text:
+        return quote, None
+    span = find_span(quote, text)
+    if span:
+        return span, 'case/whitespace differs'
+    # The model collapses repeated artifact words and elides with '...'; restore both from the source.
+    segments = [s.split() for s in ELLIPSIS.split(quote.strip()) if s.split()]
+    if segments:
+        unit = lambda w: re.escape(w) + r'(?:\s+' + re.escape(w) + r')*'
+        pattern = r'.{0,300}?'.join(r'\s+'.join(map(unit, seg)) for seg in segments)
+        m = re.search(pattern, text, re.I | re.S)
+        if m:
+            return m.group(0), 'repeated words or elided text restored from source'
+    span = fuzzy_span(quote, text) if fuzzy else None
+    if span:
+        return span, 'misquote replaced by closest source span'
+    return None, None
+
+
+def brand_excerpt(quote, brand, text, surfaces):
+    """Verbatim evidence for an unanchored brand reference: the brand-containing source window
+    closest to the model's quote, else an excerpt around the first word-bounded brand surface."""
+    span = fuzzy_span(quote, text, threshold=.6, min_words=1, must_contain=surfaces.get(brand, []))
+    if span:
+        return span
+    for surface in surfaces.get(brand, []):
+        m = re.search(r'(?<!\w)' + re.escape(surface) + r'(?!\w)', text, re.I)
+        if m:
+            start = text.rfind(' ', 0, max(0, m.start() - 40)) + 1
+            end = text.find(' ', m.end() + 40)
+            return text[start:end if end != -1 else len(text)]
+    return None
+
+
+def brand_resolver(taxonomy):
+    """Map a non-canonical brand name to the single canonical brand whose name or unambiguous alias
+    it contains as a whole word ('Mercedes-Benz E350' -> 'Mercedes-Benz'); None when zero or several match."""
+    known = {a['brand'] for a in taxonomy['aliases']} | {'GM'}
+    surfaces = [(a['surface'], a['brand']) for a in taxonomy['aliases'] if a['unambiguous']] + [(b, b) for b in known]
+
+    def resolve(name):
+        if name in known:
+            return name
+        hits = {brand for surface, brand in surfaces if surface.strip() and match_phrase(name, surface)}
+        return hits.pop() if len(hits) == 1 else None
+    return resolve
+
+
+def repair_records(records, batch, taxonomy):
+    """Deterministically repair one extraction response before strict validation.
+
+    Evidence is only ever replaced by verbatim source text. Events that cannot be anchored, or that
+    use vocabulary outside the frozen taxonomy, move to the record's unresolved notes. Supported
+    events on uncertain brands are downgraded (never upgraded). Returns (records, repairs, missing
+    post IDs); every change is logged so the pilot review can inspect it."""
+    records = copy.deepcopy(records)
+    texts = batch.set_index('post_id').clean_text.to_dict()
+    known = {a['brand'] for a in taxonomy['aliases']} | {'GM'}
+    subs = {t['theme']: {s['name'] for s in t['subattributes']} for t in taxonomy['themes']}
+    surfaces = {}
+    for a in sorted(taxonomy['aliases'], key=lambda a: -len(a['surface'])):
+        surfaces.setdefault(a['brand'], []).append(a['surface'])
+    for b in known:
+        surfaces.setdefault(b, []).append(b)
+    resolve = brand_resolver(taxonomy)
+    kept, repairs, seen = [], [], set()
+    for r in records:
+        pid = r['post_id']
+        log = lambda group, action, reason, before, after=None: repairs.append(
+            {'post_id': pid, 'group': group, 'action': action, 'reason': reason, 'before': before, 'after': after})
+        if pid not in texts or pid in seen:
+            log('record', 'dropped', 'post ID not requested or duplicated', r)
+            continue
+        seen.add(pid)
+        text = texts[pid]
+
+        def drop(group, event, reason):
+            r['unresolved'].append(f'{group} event removed ({reason}): {event["evidence"][:160]}')
+            log(group, 'moved to unresolved', reason, event)
+
+        for group in EVENT_GROUPS:
+            out = []
+            for e in r[group]:
+                # The model often names an endpoint by its model ('Cadillac CTS', 'Lexus LS400');
+                # map such names to the one canonical brand they identify.
+                for field in ['brand', 'a', 'b']:
+                    if field in e and e[field] not in known and resolve(e[field]):
+                        log(group, 'brand name mapped', 'model/alias name resolved by taxonomy', e[field], resolve(e[field]))
+                        e[field] = resolve(e[field])
+                if group == 'attributes' and not set(e['targets']) <= known:
+                    mapped = list(dict.fromkeys(t if t in known else resolve(t) or t for t in e['targets']))
+                    if mapped != e['targets']:
+                        log(group, 'brand name mapped', 'model/alias name resolved by taxonomy', e['targets'], mapped)
+                        e['targets'] = mapped
+                if group == 'attributes' and not set(e['targets']) <= known:
+                    before = list(e['targets'])
+                    e['targets'] = [t for t in e['targets'] if t in known]
+                    log(group, 'targets removed', 'brand not in taxonomy', before, e['targets'])
+                if not set(event_targets(group, e)) <= known:
+                    drop(group, e, 'brand not in taxonomy')
+                    continue
+                if group == 'attributes' and e['subattribute'] not in subs.get(e['theme'], set()):
+                    drop(group, e, 'theme/subattribute not in taxonomy')
+                    continue
+                if group == 'relations' and e['a'] == e['b']:
+                    drop(group, e, 'self relation')
+                    continue
+                # Aspiration labels hinge on exact wording (negation, conditionals): no fuzzy anchoring.
+                span, reason = anchor_evidence(e['evidence'], text, fuzzy=group != 'aspirations')
+                if span is None and group == 'brands':
+                    span, reason = brand_excerpt(e['evidence'], e['brand'], text, surfaces), 'misquote replaced by source text around brand surface'
+                if span is None:
+                    drop(group, e, 'evidence not found in post')
+                    continue
+                if span != e['evidence']:
+                    log(group, 'evidence re-anchored', reason, e['evidence'], span)
+                    e['evidence'] = span
+                out.append(e)
+            r[group] = out
+        present = {b['brand'] for b in r['brands']}
+        supported = {b['brand'] for b in r['brands'] if b['certainty'] == 'supported'}
+        for group in ['relations', 'attributes', 'aspirations']:
+            out = []
+            for e in r[group]:
+                if group == 'attributes':
+                    missing = [t for t in e['targets'] if t not in present]
+                    if missing:
+                        before = list(e['targets'])
+                        e['targets'] = [t for t in e['targets'] if t in present]
+                        log(group, 'targets removed', 'target missing from brand references', before, e['targets'])
+                elif not set(event_targets(group, e)) <= present:
+                    drop(group, e, 'endpoint missing from brand references')
+                    continue
+                if e['certainty'] == 'supported' and not set(event_targets(group, e)) <= supported:
+                    e['certainty'] = 'uncertain'
+                    log(group, 'downgraded to uncertain', 'endpoint brand is uncertain', 'supported', 'uncertain')
+                out.append(e)
+            r[group] = out
+        try:
+            validate_records([r], batch[batch.post_id.eq(pid)], taxonomy)
+        except (ValueError, jsonschema.ValidationError) as exc:
+            seen.discard(pid)
+            log('record', 'dropped', 'still invalid after repair: ' + str(exc)[:200], None)
+            continue
+        kept.append(r)
+    return kept, repairs, sorted(set(texts) - seen)
 
 
 def validate_taxonomy(tax, posts):
@@ -622,13 +1058,19 @@ def audit_sets(record):
     return {k: label[k] for k in ['brands', 'relations', 'links', 'desires', 'directions']}
 
 
+def is_reviewed(a):
+    """A completed review: a person confirmed it in the editor (human_reviewed), or the team used an
+    AI reviewer as the course permits (ai_reviewed). The two are recorded separately, never conflated."""
+    return bool(a.get('human_reviewed') or a.get('ai_reviewed'))
+
+
 def audit_metrics(audits, records, ids, posts, taxonomy, provenance):
     by_id = {r['post_id']: r for r in records}
     accepted = []
     for a in audits:
         if a['post_id'] not in ids:
             continue
-        if not a.get('reviewer') or not a.get('reviewed_at') or not a.get('human_reviewed'):
+        if not a.get('reviewer') or not a.get('reviewed_at') or not is_reviewed(a):
             continue
         if a.get('provenance') != provenance or a.get('prediction_hash') != digest(by_id.get(a['post_id'])):
             raise ValueError('Audit annotations do not match this extraction version.')
@@ -662,7 +1104,14 @@ def provenance_hash(taxonomy):
                    'prompt': EXTRACTION_PROMPT, 'schema': EXTRACTION_SCHEMA, 'model': MODEL,
                    'seed': SEED, 'gates': GATES, 'cleaning_rules': CLEANING_RULES,
                    'duplicate_key':['author','date_label','raw_text'],
-                   'blank_policy':'strip raw text; keep cleaned-empty posts', 'max_output_tokens':12000})
+                   'blank_policy':'strip raw text; keep cleaned-empty posts', 'max_output_tokens': MAX_OUTPUT,
+                   'cache_ttl': CACHE_TTL, 'batch_size': BATCH_SIZE, 'provider': 'anthropic-messages'})
+
+
+def extraction_instructions(taxonomy):
+    # The taxonomy is identical in every request, so it belongs in the leading instructions where the
+    # provider's prompt cache can reuse it; only the posts vary. (Sorted payload keys used to put posts first.)
+    return EXTRACTION_PROMPT + '\n\nTaxonomy (canonical brands, aliases, themes and subattributes):\n' + canonical(taxonomy)
 
 
 def review_template(posts, records, ids, provenance, membership):
@@ -675,22 +1124,74 @@ def review_template(posts, records, ids, provenance, membership):
              'human_reviewed': False, 'error_types': [], 'notes': ''} for i in ids]
 
 
-def save_template(path, template):
+REVIEW_FIELDS = ['expected', 'reviewer', 'reviewed_at', 'human_reviewed', 'ai_reviewed', 'error_types', 'notes']
+
+
+def save_template(path, template, carry=False):
+    """Write a review template, keeping completed reviews. With carry=True (development reviews only), a
+    review of an older prediction version moves onto the new prediction: the expected record is the
+    post's correct answer and does not depend on the model. Its error notes describe the old prediction
+    and are marked so. The random audit never carries, so it stays an independent evaluation."""
     existing = read_json(path, [])
     old = {a['post_id']: a for a in existing}
     merged = []
     for a in template:
         previous = old.get(a['post_id'])
-        if previous and previous.get('human_reviewed'):
+        if previous and is_reviewed(previous):
             if previous['provenance'] != a['provenance'] or previous['prediction_hash'] != a['prediction_hash']:
-                raise ValueError('Reviewed audit file belongs to older extraction; archive it before replacing.')
-            merged.append(previous)
+                if not carry:
+                    raise ValueError('Reviewed audit file belongs to older extraction; archive it before replacing.')
+                a.update({k: previous.get(k) for k in REVIEW_FIELDS if k in previous})
+                a['carried_from'] = previous['provenance']
+                a['notes'] = (f'[Carried from prediction version {previous["provenance"][:12]}; error notes refer '
+                              f'to that version.] ' + (previous.get('notes') or '')).strip()
+                merged.append(a)
+            else:
+                merged.append(previous)
         else:
             merged.append(a)
     write_json(path, merged)
 
 
-def run_stage(root, stage, source=None):
+def cached_extractions(cache_dir, instructions, pending):
+    """(post IDs, parsed response) for each cached extraction made with exactly these instructions,
+    model and schema whose posts are all pending. Groups never overlap."""
+    used = set()
+    for path in sorted(Path(cache_dir).glob('*.json')):
+        cached = read_json(path)
+        request = cached.get('request', {})
+        system = request.get('system') or [{}]
+        if (request.get('model') != MODEL or system[0].get('text') != instructions
+                or request.get('output_config', {}).get('format', {}).get('schema') != EXTRACTION_SCHEMA):
+            continue
+        ids = [p['post_id'] for p in json.loads(request['messages'][0]['content'])['posts']]
+        if set(ids) <= pending and not set(ids) & used:
+            jsonschema.validate(cached['parsed'], EXTRACTION_SCHEMA)
+            used.update(ids)
+            yield ids, cached['parsed']
+
+
+def archive_stale(art, paths, review_names, old_provenance, carry_reviews=False):
+    """Move an extraction checkpoint from an older version to artifacts/archive. Completed reviews of it
+    are refused (they must be archived by a person), except development reviews, which are copied to
+    the archive and carried onto the new predictions when the stage completes."""
+    for name in review_names:
+        if any(is_reviewed(a) for a in read_json(art / name, [])):
+            if not carry_reviews:
+                raise ValueError(f'{name} holds completed reviews of an older extraction; archive it explicitly first.')
+            target = art / 'archive' / f'{Path(name).stem}.{old_provenance[:12]}.json'
+            target.parent.mkdir(parents=True, exist_ok=True)
+            write_json(target, read_json(art / name))
+            print(f'Copied reviewed {name} -> archive/{target.name}; reviews carry over when the pilot completes', flush=True)
+    for path in paths:
+        if path.exists():
+            target = art / 'archive' / f'{path.stem}.{old_provenance[:12]}{path.suffix}'
+            target.parent.mkdir(parents=True, exist_ok=True)
+            path.replace(target)
+            print(f'Archived stale checkpoint {path.name} -> archive/{target.name}', flush=True)
+
+
+def run_stage(root, stage, source=None, freeze_override=None):
     root = Path(root)
     source = Path(source or root / 'sample_data.csv')
     art = root / 'artifacts'
@@ -733,22 +1234,45 @@ def run_stage(root, stage, source=None):
     provenance = provenance_hash(taxonomy)
     if stage == 'freeze':
         pilot = read_json(art / 'pilot.json')
-        if not pilot or pilot['provenance'] != provenance:
-            raise ValueError('Run the 100-post pilot with the current prompt/taxonomy first.')
+        if not pilot or pilot['provenance'] != provenance or not pilot.get('completed'):
+            raise ValueError('Complete the 100-post pilot with the current prompt/taxonomy first.')
         annotations = read_json(art / 'development_review.json', [])
         metrics = audit_metrics(annotations, pilot['records'], plan['development'], posts, taxonomy, provenance)
-        if not (metrics.reviewed_posts == 20).all():
-            raise ValueError('Freeze requires the 20 actual human development reviews. No labels are fabricated.')
+        if not (metrics.reviewed_posts == len(plan['development'])).all():
+            raise ValueError(f'Freeze requires all {len(plan["development"])} completed development reviews '
+                             '(human or disclosed AI). No labels are fabricated.')
         metric_rows = metrics.set_index('field')
-        for field, threshold in [('brands', .85), ('relations', .75), ('links', .75), ('desires', .75), ('directions', .70)]:
-            m = metric_rows.loc[field]
-            if m.gold_events >= 5 and (not np.isfinite(m.f1) or m.f1 < threshold):
-                raise ValueError(f'Pilot {field} F1 below {threshold}: revise the prompt or split the affected task before freezing.')
+        thresholds = {'brands': .85, 'relations': .75, 'links': .75, 'desires': .75, 'directions': .70}
+        metric_rows['gate'] = pd.Series(thresholds)
+        metric_rows['result'] = ['low support (not gated)' if m.gold_events < 5 else
+                                 'pass' if np.isfinite(m.f1) and m.f1 >= m.gate else 'FAIL'
+                                 for m in metric_rows.itertuples()]
+        print('Development-review quality by field:\n' + metric_rows.round(3).to_string(), flush=True)
+        failed = metric_rows.index[metric_rows.result.eq('FAIL')].tolist()
+        override = None
+        if failed:
+            reason = (freeze_override or '').strip()
+            if len(reason) < 40:
+                raise ValueError(f'Pilot F1 below gate for {", ".join(failed)}: revise the prompt or split the affected '
+                                 'task before freezing, or record an explicit team decision in FREEZE_OVERRIDE_REASON.')
+            # A documented team decision, not a silent pass: the failed fields, their scores and the reason
+            # are stored in freeze.json and reported as a limitation in the notebook.
+            override = {'failed_fields': failed, 'reason': reason, 'time': time.time(),
+                        'scores': {f: {'f1': float(metric_rows.loc[f, 'f1']), 'gate': float(metric_rows.loc[f, 'gate'])}
+                                   for f in failed}}
+            print(f'GATE OVERRIDE recorded for {", ".join(failed)}: {reason}', flush=True)
         calls = read_json(art / 'usage.json', [])
-        pilot_calls = [c for c in calls if c['step'] == 'C/E/F pilot' and c['status'] == 'completed']
+        # Calls of this version describe its per-post cost best (batch size and prompt change between
+        # versions); cached replays are free, so average per completed call, not per 100 posts.
+        pilot_calls = ([c for c in calls if c['step'] == 'C/E/F pilot' and c['status'] == 'completed'
+                        and c.get('tag') == provenance] or
+                       [c for c in calls if c['step'] == 'C/E/F pilot' and c['status'] == 'completed'
+                        and c.get('model') == MODEL])
         if not pilot_calls:
             raise ValueError('Pilot cost evidence is missing.')
-        per_post = sum(c['charged_or_reserved_usd'] for c in pilot_calls) / 100
+        per_post = sum(c['charged_or_reserved_usd'] for c in pilot_calls) / len(pilot_calls) / BATCH_SIZE
+        if EXTRACT_MODE == 'batch':
+            per_post *= PRICES['batch_discount']  # the pilot runs real-time; extraction pays batch prices
         remaining_projection = per_post * (len(posts) - 100) * 1.5
         spent = sum(c['charged_or_reserved_usd'] for c in calls)
         if spent + remaining_projection > BUDGET - BUFFER:
@@ -757,8 +1281,9 @@ def run_stage(root, stage, source=None):
                                         'projected_remaining_usd_with_50pct_margin': remaining_projection,
                                         'development_quality': metrics.replace({np.nan:None}).to_dict('records'),
                                         'low_support_fields': metrics.loc[metrics.gold_events.lt(5),'field'].tolist(),
-                                        'gates': GATES, 'time': time.time()})
-        return {'frozen': provenance, 'projected_remaining_usd': remaining_projection}
+                                        'gates': GATES, 'gate_override': override, 'time': time.time()})
+        return {'frozen': provenance, 'projected_remaining_usd': remaining_projection,
+                'gate_override': bool(override)}
     if stage not in ['pilot', 'extract']:
         raise ValueError('Unknown stage.')
     if stage == 'extract':
@@ -767,29 +1292,142 @@ def run_stage(root, stage, source=None):
             raise ValueError('Freeze the reviewed pilot before full extraction.')
     chosen = posts[posts.post_id.isin(plan['pilot'])] if stage == 'pilot' else posts
     destination = art / ('pilot.json' if stage == 'pilot' else 'extractions.json')
+    log_path = art / (stage + '_repairs.json')
     existing = read_json(destination, {'provenance': provenance, 'records': []})
     if existing['provenance'] != provenance:
-        raise ValueError('Checkpoint provenance differs; archive the old extraction explicitly.')
+        reviews = ['development_review.json'] if stage == 'pilot' else ['random_review.json', 'targeted_review.json']
+        archive_stale(art, [destination, log_path], reviews, existing['provenance'], carry_reviews=stage == 'pilot')
+        existing = {'provenance': provenance, 'records': []}
     records = existing['records']
+    log = read_json(log_path, {})
+    if log.get('provenance') != provenance:
+        log = {'provenance': provenance, 'repairs': [], 'failures': []}
     if stage == 'extract':
         pilot = read_json(art / 'pilot.json')
         known = {r['post_id'] for r in records}
         records += [r for r in pilot['records'] if r['post_id'] not in known]
     done = {r['post_id'] for r in records}
-    pending = chosen[~chosen.post_id.isin(done)]
-    for offset in range(0, len(pending), 4):
-        batch = pending.iloc[offset:offset + 4]
-        payload = {'taxonomy': taxonomy, 'posts': batch[['post_id', 'clean_text']].to_dict('records')}
-        response = api.request('C/E/F ' + stage, EXTRACTION_PROMPT, payload, EXTRACTION_SCHEMA, 12000)
-        validate_records(response['posts'], batch, taxonomy)
-        records.extend(response['posts'])
-        write_json(destination, {'provenance': provenance, 'records': records, 'completed': len(records) == len(chosen)})
-        print(f'{stage}: {len(records)}/{len(chosen)} posts saved', flush=True)
+    pending = [int(i) for i in chosen.post_id if i not in done]
+    by_id = chosen.set_index('post_id', drop=False)
+    instructions = extraction_instructions(taxonomy)
+    # Replay every cached response for the current prompt/taxonomy/schema/model that covers only
+    # pending posts, whatever grouping produced it: already-paid work is never requested again,
+    # e.g. after a repair-logic version change or when retried posts were regrouped.
+    replay = []
+    for ids, parsed in cached_extractions(api.root / 'api_cache', instructions, set(pending)):
+        fixed, repairs, missing = repair_records(parsed['posts'], by_id.loc[ids].reset_index(drop=True), taxonomy)
+        log['repairs'] = [x for x in log['repairs'] if x['post_id'] not in ids] + repairs
+        records.extend(r for r in fixed if r['post_id'] not in done)
+        done.update(r['post_id'] for r in fixed)
+        replay += ids
+    if replay:
+        print(f'{stage}: replayed {len(replay)} posts from cached responses (no new API calls)', flush=True)
+    pending = [i for i in pending if i not in done]
+    # Posts that already failed once are retried alone, so one long or difficult post cannot keep
+    # failing (or truncating) the three posts batched with it.
+    # Only post-specific failures (truncation, invalid JSON/schema, missing records) mark a post as
+    # difficult; account or service errors (bad key, rate limit, outage) say nothing about the post.
+    failed_before = {i for f in log['failures'] if f['error_type'] not in API_ERRORS
+                     for i in f['post_ids']}
+    singles = [[i] for i in pending if i in failed_before]
+    rest = [i for i in pending if i not in failed_before]
+    groups = [rest[i:i + BATCH_SIZE] for i in range(0, len(rest), BATCH_SIZE)] + singles
+    started, last_save = time.time(), [0.0]
+
+    def payload(ids):
+        return {'posts': by_id.loc[ids, ['post_id', 'clean_text']].to_dict('records')}
+
+    def call(ids):
+        return api.request('C/E/F ' + stage, instructions, payload(ids), EXTRACTION_SCHEMA, MAX_OUTPUT, tag=provenance)
+
+    def outcome(ids, response=None, exc=None):
+        """Merge one request's posts on the main thread. A failure never stops the stage; its posts stay pending."""
+        if exc is not None:
+            log['failures'].append({'post_ids': ids, 'error_type': type(exc).__name__,
+                                    'message': str(exc)[:300], 'time': time.time()})
+            print(f'{stage}: posts {ids} failed ({type(exc).__name__}: {exc}); posts stay pending', flush=True)
+            return False
+        fixed, repairs, missing = repair_records(response['posts'], by_id.loc[ids].reset_index(drop=True), taxonomy)
+        log['repairs'] = [x for x in log['repairs'] if x['post_id'] not in ids] + repairs
+        if missing:
+            log['failures'].append({'post_ids': missing, 'error_type': 'MissingRecord',
+                                    'message': 'No valid record returned; posts stay pending.', 'time': time.time()})
+        fixed = [r for r in fixed if r['post_id'] not in done]  # a resumed batch never duplicates a record
+        records.extend(fixed)
+        done.update(r['post_id'] for r in fixed)
+        return True
+
+    def save(force=False):
+        # Checkpoint at most every 20 s: rewriting a growing file per request is slow on Google Drive.
+        if force or time.time() - last_save[0] > 20:
+            write_json(log_path, log)
+            write_json(destination, {'provenance': provenance, 'records': records,
+                                     'completed': len(records) == len(chosen)})
+            last_save[0] = time.time()
+            print(f'{stage}: {len(records)}/{len(chosen)} posts saved, {time.time() - started:.0f}s', flush=True)
+
+    if groups and stage == 'extract' and EXTRACT_MODE == 'batch':
+        make_params = lambda ids: message_params(instructions, payload(ids), EXTRACTION_SCHEMA, MAX_OUTPUT)
+        # Deadline mode (team decision, 2026-09-29): reserve each batch request at the frozen pilot estimate
+        # (per-post batch cost x 1.5 margin, from freeze.json) instead of its worst case, so the whole corpus
+        # is submitted in one round. Settlement still uses actual usage; the $15 cap check is unchanged.
+        freeze = read_json(art / 'freeze.json')
+        estimate = (freeze['projected_remaining_usd_with_50pct_margin'] / max(1, len(posts) - 100) * BATCH_SIZE
+                    if RESERVE_AT_ESTIMATE else None)
+        run_message_batches(api, art / 'extract_batches.json', 'C/E/F extract', groups, make_params,
+                            EXTRACTION_SCHEMA, provenance, outcome, save, estimate=estimate)
+        save(True)
+    elif groups:
+        # Probe with one request before overlapping many, so a systematic error (bad parameter,
+        # authentication, model access) costs one reservation rather than one per worker.
+        try:
+            response = call(groups[0])
+        except BudgetStop:
+            save(True)
+            raise
+        except Exception as exc:
+            outcome(groups[0], exc=exc)
+            save(True)
+            raise RuntimeError(f'First {stage} request failed ({type(exc).__name__}: {exc}); concurrent requests '
+                               'were not started. Resolve it, then rerun the stage.') from exc
+        outcome(groups[0], response)
+        save(True)
+        stop, streak = None, 0
+        with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+            futures = {pool.submit(call, ids): ids for ids in groups[1:]}
+            for future in as_completed(futures):
+                if future.cancelled():
+                    continue
+                exc = future.exception()
+                if isinstance(exc, BudgetStop):
+                    stop = stop or exc
+                elif outcome(futures[future], None if exc else future.result(), exc):
+                    streak = 0
+                else:
+                    streak += 1
+                    if streak >= FAILURE_STREAK_STOP and stop is None:
+                        stop = RuntimeError(f'{streak} consecutive requests failed; no new requests were sent.')
+                if stop:
+                    for f in futures:
+                        f.cancel()  # queued requests are never sent; in-flight ones are still merged
+                save()
+        save(True)
+        if isinstance(stop, BudgetStop):
+            raise stop
+        if stop:
+            print(f'{stage} STOPPED: {stop} See {log_path.name}.', flush=True)
+    write_json(log_path, log)  # also when every post was replayed from cache and no request loop ran
+    left = sorted(set(map(int, chosen.post_id)) - {r['post_id'] for r in records})
+    if left:
+        write_json(destination, {'provenance': provenance, 'records': records, 'completed': False})
+        print(f'{stage} INCOMPLETE: {len(left)} posts pending {left}. See {log_path.name}; rerunning the stage '
+              'retries only these posts (each retry is a new paid request).', flush=True)
+        return {'completed': len(records), 'required': len(chosen), 'pending': left}
     validate_records(records, chosen, taxonomy)
     write_json(destination, {'provenance': provenance, 'records': records, 'completed': True})
     if stage == 'pilot':
         save_template(art / 'development_review.json', review_template(
-            posts, records, plan['development'], provenance, 'development'))
+            posts, records, plan['development'], provenance, 'development'), carry=True)
     else:
         save_template(art / 'random_review.json', review_template(posts, records, plan['holdout'], provenance, 'random'))
     return {'completed': len(records), 'required': len(chosen)}
